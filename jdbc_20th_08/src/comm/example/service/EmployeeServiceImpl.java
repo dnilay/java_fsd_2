@@ -33,5 +33,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		return null;
 	}
+	
+	public void getMetadata()
+	{
+		dao.getConnectionInfo();
+	}
 
 }
