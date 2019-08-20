@@ -11,12 +11,12 @@ public class MyStack {
 		if(index==MAX)
 		{
 			System.out.println("stack ovrerflow");
-			System.out.println("producer waiting");
+			
 			wait();
 			
 		}
 		info[++index]=item;
-		System.out.println("consumer notified");
+		System.out.println("pushed: "+item);
 		notify();
 	}
 	
@@ -25,10 +25,9 @@ public class MyStack {
 		if(index==-1)
 		{
 			System.out.println("stack underflow.");
-			System.out.println("consumer waiting");
 			wait();
 		}
-		System.out.println("producer notified");
+		
 		notifyAll();
 		return info[index--];
 		
