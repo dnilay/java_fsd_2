@@ -33,6 +33,8 @@ public class DirectoryInfo {
                 (fn.exists()? " exists": " does not exist"));
         System.out.println("Deleting temp directory...");
         try {
+        	subdir1 .delete();
+        	subdir2 .delete();
         	fn.delete();
         }
         catch(Exception e)
