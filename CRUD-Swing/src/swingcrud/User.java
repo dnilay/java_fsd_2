@@ -1,9 +1,6 @@
 package swingcrud;
 
-/**
- *
- * @author JAMES
- */
+
 public class User {
     String fname,lname,id;
     public User(String fname,String lname,String id){
