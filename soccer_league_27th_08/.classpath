@@ -13,5 +13,8 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="/home/ubuntu/Downloads/mysql-connector-java-8.0.17/mysql-connector-java-8.0.17.jar"/>
+	<classpathentry kind="lib" path="/home/ubuntu/Documents/java_softwares/commons-dbcp2-2.7.0-bin/commons-dbcp2-2.7.0/commons-dbcp2-2.7.0.jar"/>
+	<classpathentry kind="lib" path="/home/ubuntu/Documents/java_softwares/commons-pool2-2.7.0-bin/commons-pool2-2.7.0/commons-pool2-2.7.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
