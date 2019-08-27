@@ -23,13 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 public class AddLeagueViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   private String sList;
-	@Override
-	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
-		super.init(config);
-		sList=config.getInitParameter("season-list");
-	}
+ 
+	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
@@ -61,7 +56,7 @@ public class AddLeagueViewServlet extends HttpServlet {
 		out.println("<form action='add_league.do' method='post'>");
 		out.println("Title<input type='text' name='title'><br/>");
 		out.println("Year<input type='text' name='year'><br/>");
-		//String sList=getServletConfig().getInitParameter("season-list");
+		String sList=getServletConfig().getInitParameter("season-list");
 		String arrSList[]=sList.split(",");
 		out.println("<select name='season'><option value='Unknown'>Unknown</option>");
 		for(String str:arrSList)

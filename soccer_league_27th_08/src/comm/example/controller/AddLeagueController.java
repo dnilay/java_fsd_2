@@ -69,8 +69,15 @@ public class AddLeagueController extends HttpServlet {
 			errMsgs.add("title is too short.");
 		}
 		
-		if(errMsgs.isEmpty())
+		if(!errMsgs.isEmpty())
 		{
+			
+			request.setAttribute("ERROR", errMsgs);
+			RequestDispatcher view=request.getRequestDispatcher("add_league.php");
+			view.forward(request, response);
+			
+		}
+		else {
 			request.setAttribute("SUCCESS", new League(title, season, iYear));
 			Connection connection=MyConnectionFactory.getMySqlConnectionForHR();
 			PreparedStatement pst=connection.prepareStatement("insert into league(title,season,year,uid) values(?,?,?,?)");
@@ -80,11 +87,6 @@ public class AddLeagueController extends HttpServlet {
 			pst.setInt(4, League.serialVersionUID++);
 			pst.executeUpdate();
 			RequestDispatcher  view=request.getRequestDispatcher("success.view");
-			view.forward(request, response);
-		}
-		else {
-			request.setAttribute("ERROR", errMsgs);
-			RequestDispatcher view=request.getRequestDispatcher("add_league.view");
 			view.forward(request, response);
 		}
 		
