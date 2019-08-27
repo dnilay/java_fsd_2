@@ -48,7 +48,7 @@ public class AddLeagueController extends HttpServlet {
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 		errMsgs=new LinkedList<String>();
 		season=request.getParameter("season");
-		if(season.equals("Unknmown"))
+		if(season.equals("Unknown"))
 		{
 			errMsgs.add("please select a valid season.");
 		}
@@ -84,7 +84,7 @@ public class AddLeagueController extends HttpServlet {
 		}
 		else {
 			request.setAttribute("ERROR", errMsgs);
-			RequestDispatcher view=request.getRequestDispatcher("error.view");
+			RequestDispatcher view=request.getRequestDispatcher("add_league.view");
 			view.forward(request, response);
 		}
 		
