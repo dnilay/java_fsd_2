@@ -1,11 +1,8 @@
 package comm.example;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -55,6 +52,7 @@ public class JdbcDemo1 {
 		String name=scanner.next();
 		System.out.print("AMOUNT: ");
 		int amount=scanner.nextInt();
+		
 		pst.setInt(1, id);
 		pst.setString(2, name);
 		pst.setInt(3, amount);
