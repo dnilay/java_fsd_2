@@ -1,5 +1,5 @@
 package jsp_demo_29th_08;
-//Model
+//Mod
 public class Employee {
 	
 	private String name;
