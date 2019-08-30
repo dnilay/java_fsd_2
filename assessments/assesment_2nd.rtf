@@ -1,0 +1,935 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fcharset0 Verdana;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\lang9\b\f0\fs24 Question 1\par
+\b0 Given:\par
+33. try \{\par
+34. // some code here\par
+\i 35. \i0\} catch (NullPointerException e1) \{\par
+36. System.out.print(\rdblquote a\rdblquote );\par
+37. \} catch (RuntimeException e2) \{\par
+38. System.out.print(\rdblquote b\rdblquote );\par
+39. \} finally \{\par
+40. System.out.print(\rdblquote c\rdblquote );\par
+41. \}\par
+What is the result if a NullPointerException occurs on line 34?\par
+A. c\par
+B. a\par
+C. ab\par
+D. ac\par
+E. bc\par
+F. abc\par
+\b\par
+Question 2\par
+\b0 Given:\par
+11.classA \{\par
+12. public void process() \i\{ \i0 System.out.print(\rdblquote A,\rdblquote ); \i\} \}\par
+\i0 13. class B extends A \i\{\par
+\i0 14. public void process() throws IOException \i\{\par
+\i0 15. super.process();\par
+16. System.out.print(\rdblquote B,\rdblquote );\par
+17. throw new IOException();\par
+18. \} \}\par
+19. public static void main(String[] args) \i\{\par
+\i0 20. try \i\{ \i0 new B().process(); \i\}\par
+\i0 21. catch (IOException e) \i\{ \i0 System.out.println(\rdblquote Exception\rdblquote ); \i\} \}\par
+\i0 What is the result?\par
+A. Exception\par
+B. A,B,Exception\par
+C. Compilation fails because of an error in line 20.\par
+D. Compilation fails because of an error in line 14.\par
+E. A NullPointerException is thrown at runtime.\par
+\b\par
+Question 3\par
+\b0 Given:\par
+11.classA \i\{\par
+\i0 12. public void process() \i\{ \i0 System.out.print(\rdblquote A \ldblquote ); \i\} \}\par
+\i0 13. class B extends A \i\{\par
+\i0 14. public void process() throws RuntimeException \i\{\par
+\i0 15. super.process();\par
+16. if (true) throw new RuntimeException();\par
+17. System.out.print(\ldblquote B\rdblquote ); \i\}\}\par
+\i0 18. public static void main(String[] args) \i\{\par
+\i0 19. try \i\{ \i0 ((A)new B()).process(); \i\}\par
+\i0 20. catch (Exception e) \i\{ \i0 System.out.print(\rdblquote Exception \ldblquote ); \i\}\par
+\i0 21. \i\}\par
+\i0 What is the result?\par
+A. Exception\par
+B. A Exception\par
+C. A Exception B\par
+D. A B Exception\par
+E. Compilation fails because of an error in line 14.\par
+F. Compilation fails because of an error in line 19.\par
+\b\par
+Question 4\par
+\b0 Given:\par
+11. static classA \i\{\par
+\i0 12. void process() throws Exception \i\{ \i0 throw new Exception(); \i\}\par
+\i0 13. \i\}\par
+\i0 14. static class B extends A \i\{\par
+\i0 15. void process() \i\{ \i0 System.out.println(\rdblquote B \ldblquote ); \i\}\par
+\i0 16. \i\}\par
+\i0 17. public static void main(String[] args) \i\{\par
+\i0 18.A a=new B();\par
+19. a.process();\par
+20.\}\par
+What is the result?\par
+A. B\par
+B. The code runs with no output.\par
+C. An exception is thrown at runtime.\par
+D. Compilation fails because of an error in line 15.\par
+E. Compilation fails because of an error in line 18.\par
+F. Compilation fails because of an error in line 19.\par
+\b\par
+Question 5\par
+\b0 Given:\par
+11. static class A \{\par
+12. void process() throws Exception \{ throw new Exception(); \}\par
+13. \}\par
+14. static class B extends A \{\par
+15. void process() \{ System.out.println(\rdblquote B\rdblquote ); \}\par
+16. \}\par
+17. public static void main(String[] args) \{\par
+18. new B().process();\par
+19. \}\par
+What is the result?\par
+A. B\par
+B. The code runs with no output.\par
+C. Compilation fails because of an error in line 12.\par
+D. Compilation fails because of an error in line 15.\par
+E. Compilation fails because of an error in line 18.\par
+\b\par
+Question 6\par
+\b0 Given:\par
+84. try \{\par
+85. ResourceConnection con = resourceFactory.getConnection();\par
+86. Results r = con.query(\rdblquote GET INFO FROM CUSTOMER\rdblquote );\par
+87. info = r.getData();\par
+88. con.close();\par
+89. \} catch (ResourceException re) \{\par
+90. errorLog.write(re.getMessage());\par
+91. \}\par
+92. return info;\par
+Which is true if a ResourceException is thrown on line 86?\par
+A. Line 92 will not execute.\par
+B. The connection will not be retrieved in line 85.\par
+C. The resource connection will not be closed on line 88.\par
+D. The enclosing method will throw an exception to its caller.\par
+\b\par
+Question 7\par
+\b0 Click the Exhibit button.\par
+1. public class A \{\par
+2. public void method1() \{\par
+3. B b=new B();\par
+4. b.method2();\par
+5. // more code here\par
+6. \}\par
+7. \}\par
+1. public class B \{\par
+2. public void method2() \{\par
+3.C c=new C();\par
+4. c.method3();\par
+5. \i // \i0 more code here\par
+6. \}\par
+\i 7. \i0\}\par
+1. public class C \{\par
+2. public void method3() \{\par
+3. // more code here\par
+4. \}\par
+\i 5. \i0\}\par
+Given:\par
+\i 25. \i0 try \{\par
+26. A a=new A();\par
+27. a.method1();\par
+28. \} catch (Exception e) \{\par
+29. System.out.print(\rdblquote an error occurred\rdblquote );\par
+30. \}\par
+Which two are true if a NullPointerException is thrown on line 3 of\par
+class C? (Choose two.)\par
+A. The application will crash.\par
+B. The code on line 29 will be executed.\par
+C. The code on line 5 of class A will execute.\par
+D. The code on line 5 of class B will execute.\par
+E. The exception will be propagated back to line 27.\par
+\b\par
+Question 8\par
+\b0 Click the Exhibit button.\par
+1. public class A \{\par
+2. public void method1() \{\par
+3. try \{\par
+4. B b=new B();\par
+\i 5. \i0 b.method2();\par
+6. // more code here\par
+7. \} catch (TestException te) \{\par
+8. throw new RuntimeException(te);\par
+9. \}\par
+6. \}\par
+7. \}\par
+1. public class B \{\par
+2. public void method2() throws TestException \{\par
+3. // more code here\par
+4. \}\par
+\i 5. \i0\}\par
+1. public class TestException extends Exception \{\par
+2. \}\par
+Given:\par
+31. public void method() \{\par
+32. A a=new A();\par
+33. a.method1();\par
+34. \}\par
+Which is true if a TestException is thrown on line 3 of class B?\par
+A. Line 33 must be called within a try block.\par
+B. The exception thrown by method1 in class A is not required to be\par
+caught.\par
+C. The method declared on line 31 must be declared to throw a\par
+RuntimeException.\par
+D. On line \i 5 \i0 of class A, the call to method2 of class B does not need to\par
+be placed in a try/catch block.\par
+\b\par
+Question 9\par
+\b0 Given:\par
+11. public static void main(String[] args) \{\par
+12. try \{\par
+13. args=null;\par
+14. args[0] = \ldblquote test\rdblquote ;\par
+\i 15. \i0 System.out.println(args[0]);\par
+16. \} catch (Exception ex) \{\par
+17. System.out.println(\rdblquote Exception\rdblquote );\par
+18. \} catch (NullPointerException npe) \{\par
+19. System.out.println(\rdblquote NullPointerException\rdblquote );\par
+20. \}\par
+21. \}\par
+What is the result?\par
+A. test\par
+B. Exception\par
+C. Compilation fails.\par
+D. NullPointerException\par
+\b\par
+Question 10\par
+\b0 Given:\par
+11. static void test() throws Error \{\par
+12. if (true) throw new AssertionError();\par
+13. System.out.print(\rdblquote test \ldblquote );\par
+14. \}\par
+\i 15. \i0 public static void main(String[] args) \{\par
+16. try \{ test(); \}\par
+17. catch (Exception ex) \{ System.out.print(\rdblquote exception \ldblquote ); \}\par
+18. System.out.print(\rdblquote elld \ldblquote );\par
+19. \}\par
+What is the result?\par
+A. end\par
+B. Compilation fails.\par
+C. exception end\par
+D. exception test end\par
+E. A Throwable is thrown by main.\par
+F. An Exception is thrown by main.\par
+\b\par
+Question 11\par
+\b0 Given:\par
+11. static void test() \{\par
+12. try \{\par
+13. String x=null;\par
+14. System.out.print(x.toString() +\ldblquote  \ldblquote );\par
+\i 15. \i0\}\par
+16. finally \{ System.out.print(\ldblquote finally \ldblquote ); \}\par
+17. \}\par
+18. public static void main(String[] args) \{\par
+19. try \{ test(); \}\par
+20. catch (Exception ex) \{ System.out.print(\rdblquote exception \ldblquote ); \}\par
+21. \}\par
+What is the result?\par
+A. null\par
+B. finally\par
+C. null finally\par
+D. Compilation fails.\par
+E. finally exception\par
+\b\par
+Question 12\par
+\b0 Given:\par
+11. static void test() throws RuntimeException \{\par
+12. try \{\par
+13. System.out.print(\rdblquote test \ldblquote );\par
+14. throw new RuntimeException();\par
+\i 15. \i0\}\par
+16. catch (Exception ex) \{ System.out.print(\rdblquote exception \ldblquote ); \}\par
+17. \}\par
+18. public static void main(String[] args) \{\par
+19. try \{ test(); \}\par
+20. catch (RuntimeException ex) \{ System.out.print(\rdblquote runtime \ldblquote ); \}\par
+21. System.out.print(\rdblquote end \ldblquote );\par
+22. \}\par
+What is the result?\par
+A. test end\par
+B. Compilation fails.\par
+C. test runtime end\par
+D. test exception end\par
+E. A Throwable is thrown by main at runtime.\par
+\b\par
+Question 13\par
+\b0 Given a method that must ensue that its parameter is not null:\par
+11. public void someMethod(Object value) \{\par
+12. // check for null value\par
+....\par
+20. System.out.println(value.getClass());\par
+21. \}\par
+What, inserted at line 12, is the appropriate way to handle a null\par
+value?\par
+A. assert value == null;\par
+B. assert value !null, \ldblquote value is null\rdblquote ;\par
+C. if (value == null) \{\par
+throw new AssertionException(\rdblquote value is null\rdblquote );\par
+D. if (value == null) \{\par
+throw new IllegalArgumentException(\rdblquote value is null\rdblquote );\par
+\b\par
+Question 14\par
+\b0 Click the Exhibit button.\par
+10. public class ClassA \{\par
+11. public void methodA() \{\par
+12. ClassB classB = new ClassB();\par
+13. classB.getValue();\par
+14. \}\par
+\i 15. \i0\}\par
+And:\par
+20. class ClassB \{\par
+21. public ClassC classC;\par
+22.\par
+23. public String getValue() \{\par
+24. return classC.getValue();\par
+\i 25. \i0\}\par
+26. \}\par
+And:\par
+30. class ClassC \{\par
+31. public String value;\par
+32.\par
+33. public String getValue() \{\par
+34. value = \ldblquote ClassB\rdblquote ;\par
+\i 35. \i0 return value;\par
+36. \}\par
+37. \}\par
+Given:\par
+ClassA a = new ClassA();\par
+a.methodA();\par
+What is the result?\par
+A. Compilation fails.\par
+B. ClassC is displayed.\par
+C. The code runs with no output.\par
+D. An exception is thrown at runtime.\par
+\b\par
+Question15\par
+\b0 Given:\par
+10. public class Foo \{\par
+11. static int[] a;\par
+12. static \{ a[0]=2; \}\par
+13. public static void main( String[] args) \{\}\par
+14. \}\par
+Which exception or error will be thrown when a programmer attempts\par
+to run this code?\par
+A. java.lang. StackOverflowError\par
+B. java.lang.IllegalStateException\par
+C. java.lang.ExceptionlnlnitializerError\par
+D. java.lang.ArraylndexOutOfBoundsException\par
+\b\par
+Question 16\par
+\b0 Given:\par
+10. public class ClassA \{\par
+11. public void count(int i) \{\par
+12. count(++i);\par
+13. \}\par
+14. \}\par
+And:\par
+20. ClassA a = new ClassA();\par
+21. a.count(3);\par
+Which exception or error should be thrown by the virtual machine?\par
+A. StackOverflowError\par
+B. NullPointerException\par
+C. NumberFormatException\par
+D. IllegalArgumentException\par
+E. ExceptionlnlnitializerError\par
+\b\par
+Question 17\par
+\b0 Given:\par
+1. public class Boxer1 \{\par
+2. Integer i;\par
+3. int x;\par
+4. public Boxer1(int y) \{\par
+5. x=i+y;\par
+6. System.out.println(x);\par
+7. \}\par
+8. public static void main(String[] args) \{\par
+9. new Boxer1(new Integer(4));\par
+10. \}\par
+11. \}\par
+What is the result?\par
+A. The value \ldblquote 4\rdblquote  is printed at the command line.\par
+B. Compilation fails because of an error in line \i 5.\par
+\i0 C. Compilation fails because of an error in line 9.\par
+D. A NullPointerException occurs at runtime.\par
+E. A NumberFormatException occurs at runtime.\par
+F. An IllegalStateException occurs at runtime.\par
+\b\par
+Question 18\par
+\b0 Given:\par
+1. public class TestString 1 \{\par
+2. public static void main(String[] args) \{\par
+3. String str = \ldblquote 420\rdblquote ;\par
+\i 4. \i0 str += 42;\par
+\i 5. \i0 System.out.print(str);\par
+6. \}\par
+7. \}\par
+What is the output?\par
+A. 42\par
+B. 420\par
+C. 462\par
+D. 42042\par
+E. Compilation fails.\par
+F. An exception is thrown at runtime.\par
+\b\par
+Question 19\par
+\b0 Given:\par
+11. class Converter \{\par
+12. public static void main(String[] args) \{\par
+13. Integer i = args[0];\par
+14. int j = 12;\par
+15. System.out.println(\rdblquote It is \ldblquote  + (j==i) + \ldblquote that j==i.\rdblquote );\par
+16. \}\par
+17. \}\par
+What is the result when the programmer attempts to compile the code\par
+and run it with the command java Converter 12?\par
+A. It is true that j==i.\par
+B. It is false that j==i.\par
+C. An exception is thrown at runtime.\par
+D. Compilation fails because of an error in line 13.\par
+\b\par
+Question 20\par
+\b0 Given this method in a class:\par
+21. public String toString() \{\par
+22. StringBuffer buffer = new StringBuffer();\par
+23. buffer.append(\rquote <\rquote );\par
+24. buffer.append(this.name);\par
+\i 25. \i0 buffer.append(\rquote >\rquote );\par
+26. return buffer.toString();\par
+27. \}\par
+Which is true?\par
+A. This code is NOT thread-safe.\par
+B. The programmer can replace StringBuffer with StringBuilder with no\par
+other changes.\par
+C. This code will perform well and converting the code to use\par
+StringBuilder will not enhance the performance.\par
+D. This code will perform poorly. For better performance, the code\par
+should be rewritten: return \ldblquote <\ldblquote + this.name + \ldblquote >\rdblquote ;\par
+\b\par
+Question 21\par
+\b0 Given:\par
+1. public class MyLogger \{\par
+2. private StringBuilder logger = new StringBuuilder();\par
+3. public void log(String message, String user) \{\par
+4. logger.append(message);\par
+\i 5. \i0 logger.append(user);\par
+6. \}\par
+7. \}\par
+The programmer must guarantee that a single MyLogger object works\par
+properly for a multi-threaded system. How must this code be changed\par
+to be thread-safe?\par
+A. synchronize the log method\par
+B. replace StringBuilder with StringBuffer\par
+C. No change is necessary, the current MyLogger code is already\par
+thread-safe.\par
+D. replace StringBuilder with just a String object and use the string\par
+concatenation \i (+=) \i0 within the log method\par
+\b\par
+Question 23\par
+\b0 Given:\par
+11. public String makinStrings() \{\par
+12. String s = \ldblquote Fred\rdblquote ;\par
+13. s = s + \ldblquote 47\rdblquote ;\par
+14. s = s.substring(2, 5);\par
+15. s = s.toUpperCase();\par
+16. return s.toString();\par
+17. \}\par
+How many String objects will be created when this method is invoked?\par
+A. 1\par
+B. 2\par
+C. 3\par
+D. 4\par
+E. 5\par
+F. 6\par
+\b\par
+Question 24\par
+\b0 Given:\par
+1. public class TestString3 \{\par
+2. public static void main(String[] args) \{\par
+3. // insert code here\par
+5. System.out.println(s);\par
+6. \}\par
+7. \}\par
+Which two code fragments, inserted independently at line 3, generate\par
+the output 4247? (Choose two.)\par
+A. String s = \ldblquote 123456789\rdblquote ;\par
+s = (s-\rdblquote 123\rdblquote ).replace(1,3,\rdblquote 24\rdblquote ) - \ldblquote 89\rdblquote ;\par
+B. StringBuffer s = new StringBuffer(\rdblquote 123456789\rdblquote );\par
+s.delete(0,3).replace( 1,3, \ldblquote 24\rdblquote ).delete(4,6);\par
+C. StringBuffer s = new StringBuffer(\rdblquote 123456789\rdblquote );\par
+s.substring(3,6).delete( 1 ,3).insert( 1, \ldblquote 24\rdblquote );\par
+D. StringBuilder s = new StringBuilder(\rdblquote 123456789\rdblquote );\par
+s.substring(3,6).delete( 1 ,2).insert( 1, \ldblquote 24\rdblquote );\par
+E. StringBuilder s = new StringBuilder(\rdblquote 123456789\rdblquote );\par
+s.delete(0,3).delete( 1 ,3).delete(2,5).insert( 1, \ldblquote 24\rdblquote );\par
+\b\par
+Question 25\par
+\b0 Given:\par
+11. public class Yikes \{\par
+12.\par
+13. public static void go(Long n) \{System.out.println(\rdblquote Long \ldblquote );\}\par
+14. public static void go(Short n) \{System.out.println(\rdblquote Short \ldblquote );\}\par
+15. public static void go(int n) \{System.out.println(\rdblquote int \ldblquote );\}\par
+16. public static void main(String [] args) \{\par
+17. short y= 6;\par
+18. long z= 7;\par
+19. go(y);\par
+20. go(z);\par
+21. \}\par
+22. \}\par
+What is the result?\par
+A. int Long\par
+B. Short Long\par
+C. Compilation fails.\par
+D. An exception is thrown at runtime.\par
+\b\par
+Question 26\par
+\b0 Given:\par
+12. public class Wow \{\par
+13. public static void go(short n) \{System.out.println(\rdblquote short\rdblquote ); \}\par
+14. public static void go(Short n) \{System.out.println(\rdblquote SHORT\rdblquote );\}\par
+\i 15. \i0 public static void go(Long n) \{System.out.println(\rdblquote  LONG\rdblquote ); \}\par
+16. public static void main(String [] args) \{\par
+17. Short y= 6;\par
+18.int z=7;\par
+19. go(y);\par
+20. go(z);\par
+21. \}\par
+22. \}\par
+What is the result?\par
+A. short LONG\par
+B. SHORT LONG\par
+C. Compilation fails.\par
+D. An exception is thrown at runtime.\par
+\b\par
+Question 27\par
+\b0 Given:\par
+10. class MakeFile \{\par
+11. public static void main(String[] args) \{\par
+12. try \{\par
+13. File directory = new File(\rdblquote d\rdblquote );\par
+14. File file = new File(directory,\rdblquote f\rdblquote );\par
+\i 15. \i0 if(!file.exists()) \{\par
+16. file.createNewFile();\par
+17. \}\par
+18. \} catch (IOException e) \{\par
+19. e.printStackTrace\par
+20. \}\par
+21. \}\par
+22. \}\par
+The current directory does NOT contain a directory named \ldblquote d.\rdblquote\par
+Which three are true? (Choose three.)\par
+A. Line 16 is never executed.\par
+B. An exception is thrown at runtime.\par
+C. Line 13 creates a File object named \ldblquote d.\rdblquote\par
+D. Line 14 creates a File object named \ldblquote f.\rquote\par
+E. Line 13 creates a directory named \ldblquote d\rdblquote  in the file system.\par
+F. Line 16 creates a directory named \ldblquote d\rdblquote  and a file \lquote f\rquote  within it in the\par
+file system.\par
+G. Line 14 creates a file named \lquote f\rquote  inside of the directory named \ldblquote d\rdblquote  in\par
+the file system.\par
+\b\par
+Question 28\par
+\b0 When comparing java.io.BufferedWriter to java.io.FileWriter, which\par
+capability exists as a method in only one of the two?\par
+A. closing the stream\par
+B. flushing the stream\par
+C. writing to the stream\par
+D. marking a location in the stream\par
+E. writing a line separator to the stream\par
+\b\par
+Question 29\par
+\b0 Given:\par
+12. import java.io.*;\par
+13. public class Forest implements Serializable \{\par
+14. private Tree tree = new Tree();\par
+\i 15. \i0 public static void main(String [] args) \{\par
+16. Forest f= new Forest();\par
+17. try \{\par
+18. FileOutputStream fs = new FileOutputStream(\rdblquote Forest.ser\rdblquote );\par
+19. ObjectOutputStream os = new ObjectOutputStream(fs);\par
+20. os.writeObject(f); os.close();\par
+21. \} catch (Exception ex) \{ ex.printStackTrace(); \}\par
+22. \} \}\par
+23.\par
+24. class Tree \{ \}\par
+What is the result?\par
+A. Compilation fails.\par
+B. An exception is thrown at runtime.\par
+C. An instance of Forest is serialized.\par
+D. A instance of Forest and an instance of Tree are both serialized.\par
+\b\par
+Question 30\par
+\b0 Click the Exhibit button.\par
+1. import java.io.*;\par
+2. public class Foo implements Serializable \{\par
+3. public int x, y;\par
+4. public Foo( int x, int y) \{ this.x = x; this.y = y; \}\par
+\i 5.\par
+\i0 6. private void writeObject( ObjectOutputStream s)\par
+7. throws IOException \{\par
+8. s.writeInt(x); s.writeInt(y)\par
+9. \}\par
+10.\par
+11. private void readObject( ObjectInputStream s)\par
+12. throws IOException, ClassNotFoundException \{\par
+13.\par
+14. // insert code here\par
+\i 15.\par
+\i0 16. \}\par
+17. \}\par
+Which code, inserted at line 14, will allow this class to correctly\par
+serialize and deserialize?\par
+A. s.defaultReadObject();\par
+B. this = s.defaultReadObject();\par
+C. y = s.readInt(); x = s.readInt();\par
+D. x = s.readInt(); y = s.readInt();\par
+\b\par
+Question 31\par
+\b0 Which three concerning the use of the java.io.Serializable interface are\par
+true? (Choose three.)\par
+A. Objects from classes that use aggregation cannot be serialized.\par
+B. Art object serialized on one JVM can be successfully deserialized on\par
+a different JVM.\par
+C. The values in fields with the volatile modifier will NOT survive\par
+serialization and deserialization.\par
+D. The values in fields with the transient modifier will NOT survive\par
+serialization and deserialization.\par
+E. It is legal to serialize an object of a type that has a supertype that\par
+does NOT implement java.io.Serializable.\par
+\b\par
+Question 32\par
+\b0 Assuming that the serializeBanana() and the deserializeBanana()\par
+methods will correctly use Java serialization and given:\par
+13. import java.io.*;\par
+14. class Food implemertts Serializable \{int good = 3;\}\par
+\i 15. \i0 class Fruit externds Food \{int juice = \i 5;\}\par
+\i0 16. public class Banana extends Fruit \{\par
+17. int yellow = 4;\par
+18. public static void main(String [] args) \{\par
+19. Banana b = new Banana(); Banana b2 = new Banana();\par
+20. b.serializeBanana(b); // assume correct serialization\par
+21. b2 = b.deserializeBanana(); // assume correct\par
+22. System.out.println(\rdblquote restore \ldblquote +b2.yellow+ b2.juice+b2.good);\par
+24. \}\par
+25. // more Banana methods go here\par
+\i 50. \i0\}\par
+\lquote What is the result?\par
+A. restore 400\par
+B. restore 403\par
+C. restore 453\par
+D. Compilation fails.\par
+E. An exception is thrown at runtime.\par
+\b\par
+Question 33\par
+\b0 Assuming that the serializeBanana2() and the deserializeBanana2()\par
+methods will correctly use Java serialization and given:\par
+13. import java.io.*;\par
+14. class Food \{Food() \{ System.out.print(\rdblquote 1\rdblquote ); \} \}\par
+\i 15. \i0 class Fruit extends Food implements Serializable \{\par
+16. Fruit() \{ System.out.print(\rdblquote 2\rdblquote ); \} \}\par
+17. public class Banana2 extends Fruit \{ int size = 42;\par
+18. public static void main(String [] args) \{\par
+19. Banana2 b = new Banana2();\par
+20. b.serializeBanana2(b); // assume correct serialization\par
+21. b = b.deserializeBanana2(b); // assume correct\par
+22. System.out.println(\rdblquote  restored \ldblquote + b.size + \ldblquote  \ldblquote ); \}\par
+23. // more Banana2 methods\par
+24. \}\par
+What is the result?\par
+A. Compilation fails.\par
+B. 1 restored 42\par
+C. 12 restored 42\par
+D. 121 restored 42\par
+E. 1212 restored 42\par
+F. An exception is thrown at runtime.\par
+\b\par
+Question 34\par
+\b0 Given:\par
+10. public class Foo implements java.io.Serializable \{\par
+11. private int x;\par
+12. public int getX() \{ return x; \}\par
+12.publicFoo(int x)\{this.x=x; \}\par
+13. private void writeObject( ObjectOutputStream s)\par
+14. throws IOException \{\par
+\i 15. \i0 // insert code here\par
+16. \}\par
+17. \}\par
+Which code fragment, inserted at line \i 15, \i0 will allow Foo objects to be\par
+correctly serialized and deserialized?\par
+A. s.writeInt(x);\par
+B. s.serialize(x);\par
+C. s.writeObject(x);\par
+D. s.defaultWriteObject();\par
+\b\par
+Question 35\par
+\b0 Given:\par
+12. NumberFormat nf= NumberFormat.getInstance();\par
+13. nf.setMaximumFractionDigits(4);\par
+14. nf.setMinimumFractionDigits(2);\par
+\i 15. \i0 String a = nf.format(3.1415926);\par
+16. String b = nf.format(2);\par
+Which two are true about the result if the default locale is Locale.US?\par
+(Choose two.)\par
+A. The value of b is 2.\par
+B. The value of a is 3.14.\par
+C. The value of b is 2.00.\par
+D. The value of a is 3.141.\par
+E. The value of a is \i 3.1415.\par
+\i0 F. The value of a is 3.1416.\par
+G. The value of b is 2.0000.\par
+\b\par
+Question 36\par
+\b0 Given:\par
+11. double input = \i 314159.26;\par
+\i0 12. NumberFormat nf= NumberFormat.getInstance(Locale.ITALIAN);\par
+13. String b;\par
+14. //insert code here\par
+Which code, inserted at line 14, sets the value of b to 3 \i 14.159,26?\par
+\i0 A. b = nf.parse( input);\par
+B. b = nf.format( input);\par
+C. b = nf.equals( input);\par
+D. b = nf.parseObject( input);\par
+\b\par
+Question 37\par
+\b0 Given:\par
+14. DateFormat df;\par
+\i 15. \i0 Date date = new Date();\par
+16. //insert code here\par
+17. String s = df.format( date);\par
+Which two, inserted independently at line 16, allow the code to\par
+compile? (Choose two.)\par
+A. df= new DateFormat();\par
+B. df= Date.getFormatter();\par
+C. df= date.getFormatter();\par
+D. df= date.getDateFormatter();\par
+E. df= Date.getDateFormatter();\par
+F. df= DateFormat.getInstance();\par
+G. df = DateFormat.getDateInstance();\par
+\b\par
+Question 38\par
+\b0 Given:\par
+12. Date date = new Date();\par
+13. df.setLocale(Locale.ITALY);\par
+14. String s = df.format(date);\par
+The variable df is an object of type DateFormat that has been\par
+initialized in line 11. What is the result if this code is run on December\par
+14, 2000?\par
+A. The value of s is 14-dic-2004.\par
+B. The value of s is Dec 14, 2000.\par
+C. An exception is thrown at runtime.\par
+D. Compilation fails because of an error in line 13.\par
+\b\par
+Question 39\par
+\b0 Given:\par
+33. Date d = new Date(0);\par
+34. String ds = \ldblquote December \i 15, \i0 2004\rdblquote ;\par
+\i 35. \i0 // insert code here\par
+36. try \{\par
+37. d = df.parse(ds);\par
+38. \}\par
+39. catch(ParseException e) \{\par
+40. System.out.println(\rdblquote Unable to parse \ldblquote + ds);\par
+41. \}\par
+42. // insert code here too\par
+Which will create the appropriate DateFormat object and add a day to\par
+the Date object?\par
+A. \i 35. \i0 DateFormat df= DateFormat.getDateFormat();\par
+42. d.setTime( (60 * 60 * 24) + d.getTime());\par
+B. 35. DateFormat df= DateFormat.getDateJnstance();\par
+42. d.setTime( (1000 * 60 * 60 * 24) + d.getTime());\par
+C. \i 35. \i0 DateFormat df= DateFormat.getDateFormat();\par
+42. d.setLocalTime( (1000*60*60*24) + d.getLocalTime());\par
+D. \i 35. \i0 DateFormat df= DateFormat.getDateJnstance();\par
+42. d.setLocalTime( (60 * 60 * 24) + d.getLocalTime());\par
+\b\par
+Question 40\par
+\b0 Given a valid DateFormat object named df, and\par
+16. Date d = new Date(0L);\par
+17. String ds = \ldblquote December \i 15, \i0 2004\rdblquote ;\par
+18. // insert code here\par
+What updates d\rquote s value with the date represented by ds?\par
+A. 18. d = df.parse(ds);\par
+B. 18. d = df.getDate(ds);\par
+C. 18. try \{\par
+19. d = df.parse(ds);\par
+20. \} catch(ParseException e) \{ \};\par
+D. 18. try \{\par
+19. d = df.getDate(ds);\par
+20. \} catch(ParseException e) \{ \};\par
+\b\par
+Question 41\par
+\b0 Given:\par
+11. String test = \ldblquote This is a test\rdblquote ;\par
+12. String[] tokens = test.split(\rdblquote\\s\rdblquote );\par
+13. System.out.println(tokens.length);\par
+What is the result?\par
+A. 0\par
+B. 1\par
+C. 4\par
+D. Compilation fails.\par
+E. An exception is thrown at runtime.\par
+\b\par
+Question42\par
+\b0 Given:\par
+11. String test= \ldblquote a1b2c3\rdblquote ;\par
+12. String[] tokens = test.split(\rdblquote\\\\d\rdblquote );\par
+13. for(String s: tokens) System.out.print(s +\ldblquote  \ldblquote );\par
+What is the result?\par
+A. a b c\par
+B. 1 2 3\par
+C. a1b2c3\par
+D. a1 b2 c3\par
+E. Compilation fails.\par
+F. The code runs with no output.\par
+G. An exception is thrown at runtime.\par
+\b\par
+Question 43\par
+\b0 Given:\par
+11. String test = \ldblquote Test A. Test B. Test C.\rdblquote ;\par
+12. // insert code here\par
+13. String[] result = test.split(regex);\par
+Which regular expression inserted at line 12 will correctly split test into\par
+\ldblquote Test A,\rdblquote  \ldblquote Test B,\rdblquote  and \ldblquote Test C\rdblquote ?\par
+A. String regex = \ldblquote\rdblquote ;\par
+B. String regex = \ldblquote  \ldblquote ;\par
+C. String regex = \ldblquote .*\ldblquote .\par
+D. String regex = \ldblquote{\field{\*\fldinst{HYPERLINK "\\\\\\\\s"}}{\fldrslt{\ul\cf1\\\\s}}}\f0\fs24\rdblquote\par
+E. String regex = \ldblquote{\field{\*\fldinst{HYPERLINK "\\\\\\\\.\\\\\\\\s*"}}{\fldrslt{\ul\cf1\\\\.\\\\s*}}}\f0\fs24\rdblquote ;\par
+F. String regex = \ldblquote{\field{\*\fldinst{HYPERLINK "\\\\\\\\w"}}{\fldrslt{\ul\cf1\\\\w}}}\f0\fs24 [ \\.] +\ldblquote ;\par
+\b\par
+Question 44\par
+\b0 Given:\par
+12. System.out.format(\rdblquote Pi is approximately %d.\rdblquote , Math.PI);\par
+What is the result?\par
+A. Compilation fails.\par
+B. Pi is approximately 3.\par
+C. Pi is approximately \i 3.141593.\par
+\i0 D. An exception is thrown at runtime.\par
+\b\par
+Question 45\par
+\b0 Given:\par
+12. String csv = \i\ldblquote Sue,5,true,3\rdblquote ;\par
+\i0 13. Scanner scanner = new Scanner( csv);\par
+14. scanner.useDelimiter(\rdblquote ,\rdblquote );\par
+15. int age = scanner.nextInt();\par
+What is the result?\par
+A. Compilation fails.\par
+B. After line 15, the value of age is 5.\par
+C. After line 15, the value of age is 3.\par
+D. An exception is thrown at runtime.\par
+\b\par
+Question 46\par
+\b0 Which two code fragments will execute the method doStuff() in a\par
+separate thread? (Choose two.)\par
+A. new Thread() \{\par
+public void run() \{ doStuff(); \}\par
+\}\par
+B. new Thread() \{\par
+public void start() \{ doStuff(); \}\par
+\}\par
+C. new Thread() \{\par
+public void start() \{ doStuff(); \}\par
+\} .run();\par
+D. new Thread() \{\par
+public void run() \{ doStuff(); \}\par
+\} .start();\par
+E. new Thread(new Runnable() \{\par
+public void run() \{ doStuff(); \}\par
+\} ).run();\par
+F. new Thread(new Runnable() \{\par
+public void run() \{ doStuff(); \}\par
+\}).start();\par
+\b\par
+Question 47\par
+\b0 Given:\par
+1. public class Threads3 implements Runnable \{\par
+2. public void run() \{\par
+3. System.out.print(\rdblquote running\rdblquote );\par
+4. \}\par
+5. public static void main(String[] args) \{\par
+\i 6. \i0 Thread t = new Thread(new Threads3());\par
+7. t.run();\par
+8. t.run();\par
+\i 9. \i0 t.start();\par
+10. \}\par
+11. \}\par
+What is the result?\par
+A. Compilation fails.\par
+B. An exception is thrown at runtime.\par
+C. The code executes and prints \ldblquote running\rdblquote .\par
+D. The code executes and prints \ldblquote runningrunning\rdblquote .\par
+E. The code executes and prints \ldblquote runningrunningrunning\rdblquote .\par
+\b\par
+Question 48\par
+\b0 Given:\par
+1. public class Threads4 \{\par
+2. public static void main (String[] args) \{\par
+3. new Threads4().go();\par
+4. \}\par
+\i 5. \i0 public void go() \{\par
+6. Runnable r = new Runnable() \{\par
+7. public void run() \{\par
+8. System.out.print(\rdblquote foo\rdblquote );\par
+9. \}\par
+10. \};\par
+11. Thread t = new Thread(r);\par
+12. t.start();\par
+13. t.start();\par
+14. \}\par
+\i 15. \i0\}\par
+What is the result?\par
+A. Compilation fails.\par
+B. An exception is thrown at runtime.\par
+C. The code executes normally and prints \lquote foo\rdblquote .\par
+D. The code executes normally, but nothing is printed.\par
+\b\par
+Question 49\par
+\b0 Given:\par
+1. public class Threads5 \{\par
+2. public static void main (String[] args) \{\par
+3. new Thread(new Runnable() \{\par
+4. public void run() \{\par
+\i 5. \i0 System.out.print(\rdblquote bar\rdblquote );\par
+6. \}\}).start();\par
+7. \}\par
+8. \}\par
+What is the result?\par
+A. Compilation fails.\par
+B. An exception is thrown at runtime.\par
+C. The code executes normally and prints \ldblquote bar\rdblquote .\par
+D. The code executes normally, but nothing prints.\par
+\b\par
+Question 50\par
+\b0 Given:\par
+11. Runnable r = new Runnable() \{\par
+12. public void run() \{\par
+13. System.out.print(\rdblquote Cat\rdblquote );\par
+14. \}\par
+\i 15. \};\par
+\i0 16. Threadt=new Thread(r) \{\par
+17. public void run() \{\par
+18. System.out.print(\rdblquote Dog\rdblquote );\par
+19. \}\par
+20. \};\par
+21. t.start();\par
+What is the result?\par
+A. Cat\par
+B. Dog\par
+C. Compilation fails.\par
+D. The code runs with no output.\par
+E. An exception is thrown at runtime.\par
+\b\par
+}
+ 
