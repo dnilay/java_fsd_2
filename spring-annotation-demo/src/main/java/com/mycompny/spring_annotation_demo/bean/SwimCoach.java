@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 
 public  class SwimCoach implements Coach{
-	@Value("admin@luv2code.com")
+	@Value("${foo.email}")
 	private String email;
 	@Value("The Spring Team.")
 	private String teamName;
