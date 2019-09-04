@@ -21,7 +21,7 @@ public class App
         			ClassPathXmlApplicationContext("applicationContext.xml");
         	Coach theCoach=context.getBean("theCoach",Coach.class);
         	System.out.println(theCoach.getDailyWorkout()+" "+theCoach.getDailyFortune());
-			
+			context.close();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
