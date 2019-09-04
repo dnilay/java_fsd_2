@@ -3,6 +3,8 @@ package com.mycompny.spring_annotation_demo;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.mycompny.spring_annotation_demo.bean.Coach;
+import com.mycompny.spring_annotation_demo.bean.Employee;
+import com.mycompny.spring_annotation_demo.bean.EmployeeDAO;
 
 /**
  * Hello world!
@@ -14,8 +16,8 @@ public class App
     {
         ClassPathXmlApplicationContext context=
         		new ClassPathXmlApplicationContext("applicationContext.xml");
-        Coach c=context.getBean("swimCoach",Coach.class);
-        System.out.println(c.getDailyWorkout()+"\n"+c.getDailyFortune());
-        context.close();
+        EmployeeDAO dao=context.getBean("eDao",EmployeeDAO.class);
+        dao.createEmployee(new Employee("SACHIN"));
+        
     }
 }
