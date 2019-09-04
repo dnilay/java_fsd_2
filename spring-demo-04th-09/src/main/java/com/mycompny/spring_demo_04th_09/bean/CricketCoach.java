@@ -3,7 +3,8 @@ package com.mycompny.spring_demo_04th_09.bean;
 public class CricketCoach implements Coach {
 	
 	private FortuneService fortuneService;
-	
+	private String email;
+	private String teamName;
 	
 
 	public CricketCoach() {
@@ -15,9 +16,33 @@ public class CricketCoach implements Coach {
 		this.fortuneService = fortuneService;
 	}
 
+	public FortuneService getFortuneService() {
+		return fortuneService;
+	}
+
+	public void setFortuneService(FortuneService fortuneService) {
+		this.fortuneService = fortuneService;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTeamName() {
+		return teamName;
+	}
+
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
+
 	public String getDailyWorkout() {
 		// TODO Auto-generated method stub
-		return "practice 5k running today";
+		return "practice 5k running today "+getTeamName()+" "+getEmail();
 	}
 
 	public String getDailyFortune() {
