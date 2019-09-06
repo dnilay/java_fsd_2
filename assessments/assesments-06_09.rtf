@@ -1,0 +1,1048 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fcharset0 Verdana;}}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\lang9\b\f0\fs24 Question 1\par
+\b0\par
+1. public class Threads 1 \{\par
+2. intx=0;\par
+3. public class Runner implements Runnable \{\par
+4. public void run() \{\par
+\i 5. \i0 int current = 0;\par
+6. for(int=i=0;i<4;i++)\{\par
+7. current = x;\par
+8. System.out.print(current + \ldblquote , \ldblquote );\par
+9. x = current + 2;\par
+10. \}\par
+11. \}\par
+12. \}\par
+13.\par
+14. public static void main(String[] args) \{\par
+\i 15. \i0 new Threads1().go();\par
+16. \}\par
+17.\par
+18. public void go() \{\par
+19. Runnable r1 = new Runner();\par
+20. new Thread(r1).start();\par
+21. new Thread(r1 ).start();\par
+22. \}\par
+23. \}\par
+Which two are possible results? (Choose two.)\par
+A. 0, 2, 4, 4, 6, 8, 10, 6,\par
+B. 0, 2, 4, 6, 8, 10, 2, 4,\par
+C. 0, 2, 4, 6, 8, 10, 12, 14,\par
+D. 0, 0, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12, 12, 14, 14,\par
+E. 0, 2, 4, 6, 8, 10, 12, 14, 0, 2, 4, 6, 8, 10, 12, 14,\par
+\b\par
+Question 2\par
+\b0  .\par
+1. import java.util.*;\par
+2.\par
+3. public class NameList \{\par
+4. private List names = new ArrayList();\par
+\i 5. \i0 public synchronized void add(String name) \{ names.add(name); \}\par
+6. public synchronized void printAll() \{\par
+7. for (int i = 0; i <names.size(); i++) \{\par
+8. System.out.print(names.get(i) +\ldblquote  \ldblquote );\par
+9. \}\par
+10. \}\par
+11. public static void main(String[] args) \{\par
+12. final NameList sl = new NameList();\par
+13.for(int i=0;i<2;i++) \{\par
+14. new Thread() \{\par
+\i 15. \i0 public void ruin() \{\par
+16. sl.add(\rdblquote A\rdblquote );\par
+17. sl.add(\rdblquote B\rdblquote );\par
+18. sl.add(\rdblquote C\rdblquote );\par
+19. sl.printAll();\par
+20. \}\par
+21. \}.start();\par
+22. \}\par
+23. \}\par
+24. \}\par
+Which two statements are true if this class is compiled and run?\par
+(Choose two.)\par
+A. An exception may be thrown at runtime.\par
+B. The code may run with no output, without exiting.\par
+C. The code may run with no output, exiting normally.\par
+D. The code may rum with output \ldblquote A B A B C C \ldblquote , then exit.\par
+E. The code may rum with output \ldblquote A B C A B C A B C \ldblquote , then exit.\par
+F. The code may ruin with output \ldblquote A A A B C A B C C \ldblquote , then exit.\par
+G. The code may ruin with output \ldblquote A B C A A B C A B C \ldblquote , then exit.\par
+\b\par
+Question 3\par
+\b0 Given:\par
+1. public class TestFive \{\par
+2. private int x;\par
+3. public void foo() \{\par
+4 int current = \i x;\par
+5. x \i0 = current + 1;\par
+6. \}\par
+7. public void go() \{\par
+8. \i for(\i0 int \i i=0;i<5;i++) \i0\{\par
+9. new Thread() \{\par
+10. public void run() \{\par
+11. foo();\par
+12. System.out.print(x + \ldblquote , \ldblquote );\par
+13. \} \}.start();\par
+14. \}\}\}\par
+Which two changes, taken together, would guarantee the output: 1, 2,\par
+3, 4, 5, ? (Choose two.)\par
+A. Move the line 12 print statement into the foo() method.\par
+B. Change line 7 to public synchronized void go() \{.\par
+C. Change the variable declaration on line 3 to private volatile int x;.\par
+D. Wrap the code inside the foo() method with a synchronized( this )\par
+block.\par
+E. Wrap the for loop code inside the go() method with a synchronized\par
+block synchronized(this) \{ // for loop code here \}\par
+.\par
+\b Question 4\par
+\b0 Which three will compile and rim without exception? (Choose three.)\par
+A. private synchronized Object o;\par
+B. void go() \{\par
+synchronized() \{ /* code here */ \}\par
+\}\par
+C. public synchronized void go() \{ /* code here */ \}\par
+D. private synchronized(this) void go() \{ /* code here */ \}\par
+E. void go() \{\par
+synchronized(Object.class) \{ /* code here */ \}\par
+\}\par
+F. void go() \{\par
+Object o = new Object();\par
+synchronized(o) \{ /* code here */ \}\par
+\}\par
+\b Question 5\par
+\b0 Given:\par
+1. public class TestSeven extends Thread \{\par
+2. private static int x;\par
+3. public synchronized void doThings() \{\par
+4. int current = x;\par
+\i 5. \i0 current++;\par
+\i 6. \i0 x = current;\par
+7. \}\par
+8. public void run() \{\par
+9. doThings();\par
+10. \}\par
+1 1.\}\par
+Which is true?\par
+A. Compilation fails.\par
+B. An exception is thrown at runtime.\par
+C. Synchronizing the run() method would make the class thread-safe.\par
+D. The data in variable \ldblquote x\rdblquote  are protected from concurrent access\par
+problems.\par
+E. Declaring the doThings() method as static would make the class\par
+thread-safe.\par
+F. Wrapping the statements within doThings() in a synchronized(new\par
+Object()) \{ \} block would make the class thread-safe.\par
+\b\par
+Question 6\par
+\b0  .\par
+10. public class Transfers \{\par
+11. public static void main(String[] args) throws Exception \{\par
+12. Record r1 = new Record();\par
+13. Record r2 = new Record();\par
+14. doTransfer(r1, r2, \i 5);\par
+15. \i0 doTransfer(r2, r1, 2);\par
+16. doTransfer(r1, r2, 1);\par
+17. // print the result\par
+18. System.out.println(\rdblquote rl = \ldblquote  + r1.get() +\ldblquote , r2=\rdblquote  + r2.get());\par
+19. \}\par
+20. private static void doTransfer(\par
+21. final Record a, final Record b, final int amount) \{\par
+22. Thread t = new Thread() \{\par
+23. public void run() \{\par
+24. new Clerk().transfer(a, b, amount);\par
+\i 25. \i0\}\par
+26. \};\par
+27. t.start();\par
+28. \}\par
+29. \}\par
+30. class Clerk \{\par
+31. public synchronized void transfer(Record a, Record b, int amount)\{\par
+32. synchronized (a) \{\par
+33. synchronized (b) \{\par
+34. a.add(-amount);\par
+\i 35. \i0 b.add(amount);\par
+36. \}\par
+37. \}\par
+38. \}\par
+39. \}\par
+40. class Record \{\par
+41.int num=10;\par
+42. public int get() \{ return num; \}\par
+43. public void add(int n) \{ num = num + n; \}\par
+44. \}\par
+If Transfers.main() is run, which three are true? (Choose three.)\par
+A. The output may be \ldblquote r1 = 6, r2 = 14\rdblquote .\par
+B. The output may be \ldblquote r1 = \i 5, \i0 r2 = \i 15\rdblquote .\par
+\i0 C. The output may be \ldblquote r1 = 8, r2 = 12\rdblquote .\par
+D. The code may run (and complete) with no output.\par
+E. The code may deadlock (without completing) with no output.\par
+F. M IllegalStateException or InterruptedException may be thrown at\par
+runtime.\par
+\b Question 7\par
+\b0  .\par
+1. class Computation extends Thread \{\par
+2.\par
+3. private int num;\par
+4. private boolean isComplete;\par
+\i 5. \i0 private int result;\par
+6.\par
+7. public Computation(int num) \{ this.num = num; \}\par
+8.\par
+9. public synchronized void run() \{\par
+10. result = num * 2;\par
+11. isComplete = true;\par
+12. notify();\par
+13. \}\par
+14.\par
+15. public synchronized int getResult() \{\par
+16. while (!isComplete) \{\par
+17. try \{\par
+18. wait();\par
+19. \} catch (InterruptedException e) \{ \}\par
+20. \}\par
+21. return result;\par
+22. \}\par
+23.\par
+24. public static void main(String[] args) \{\par
+25. Computation[] computations = new Computation [4];\par
+26. for (int i = 0; i < computations.length; i++) \{\par
+27. computations[i] = new Computation(i);\par
+28. computations[i] .start();\par
+29. \}\par
+30. for (Computation c : computations)\par
+31. System.out.print(c.getResult() +\ldblquote  \ldblquote );\par
+32. \}\par
+33. \}\par
+What is the result?\par
+A. The code will deadlock.\par
+B. The code may run with no output.\par
+C. An exception is thrown at runtime.\par
+D. The code may run with output \ldblquote 0 6\rdblquote .\par
+E. The code may run with output \ldblquote 2 0 6 4\rquote .\par
+F. The code may ruin with output \ldblquote 0 2 4 6\rdblquote .\par
+\b Question 8\par
+\b0 Given:\par
+7. void waitForSignal() \{\par
+8. Object obj = new Object();\par
+9. synchronized (Thread.currentThread()) \{\par
+10. obj.wait();\par
+11. obj.notify();;\par
+12. \}\par
+13. \}\par
+Which is true?\par
+A. This code may throw an InterruptedException.\par
+B. This code may throw an IllegalStateException.\par
+C. This code may throw a TimeoutException after ten minutes.\par
+D. This code will not compile unless \ldblquote obj.wait()\rdblquote  is replaced with\par
+\ldblquote ((Thread) obj).wait()\rdblquote .\par
+E. Reversing the order of obj.wait() and obj.notify() may cause this\par
+method to complete normally.\par
+F. A call to notify() or notifyAll() from another thread may cause this\par
+method to complete normally.\par
+\b Question 9\par
+\b0 Given:\par
+foo and bar are public references available to many other threads. foo\par
+refers to a Thread and bar is an Object. The thread foo is currently\par
+executing bar.wait(). From another thread, which statement is the\par
+most reliable way to ensue that foo will stop executing wait()?\par
+A. foo.notify();\par
+B. bar.notify();\par
+C. foo.notifyAll();\par
+D. Thread.notify();\par
+E. bar.notiFYAll();\par
+F. Object.notify();\par
+\b Question 10\par
+\b0 Which two are true? (Choose two.)\par
+A. An encapsulated, public class promotes re-use.\par
+B. Classes that share the same interface are always tightly\par
+encapsulated.\par
+C. An encapsulated class allows subclasses to overload methods, but\par
+does NOT allow overriding methods.\par
+D. An encapsulated class allows a programmer to change an\par
+implementation without affecting outside code.\par
+\b Question 11\par
+\b0 Given:\par
+1. package test;\par
+2.\par
+3. class Target \{\par
+4. public String name = \ldblquote hello\rdblquote ;\par
+\i 5. \i0\}\par
+What can directly access and change the value of the variable name?\par
+A. any class\par
+B. only the Target class\par
+C. any class in the test package\par
+D. any class that extends Target\par
+\b Question 12\par
+\b0 Given:\par
+1. public class Target \{\par
+2. private int i = 0;\par
+3. public int addOne() \{\par
+4. return ++i;\par
+\i 5. \i0\}\par
+6. \}\par
+And:\par
+1. public class Client \{\par
+2. public static void main(String[] args) \{\par
+3. System.out.println(new Target().addOne());\par
+4. \}\par
+\i 5. \i0\}\par
+Which change can you make to Target without affecting Client?\par
+A. Line 4 of class Target can be changed to return i++;\par
+B. Line 2 of class Target can be changed to private int i = 1;\par
+C. Line 3 of class Target can be changed to private int addOne() \{\par
+D. Line 2 of class Target can be changed to private Integer i = 0;\par
+\b Question 13\par
+\b0 Given:\par
+1. package geometry;\par
+2. public class Hypotenuse \{\par
+3. public InnerTriangle it = new InnerTriangle();\par
+4. class InnerTriangle \{\par
+\i 5. \i0 public int base;\par
+6. public int height;\par
+\i 7. \i0\}\par
+8. \}\par
+Which is true about the class of an object that can reference the\par
+variable base?\par
+A. It can be any class.\par
+B. No class has access to base.\par
+C. The class must belong to the geometry package.\par
+D. The class must be a subclass of the class Hypotenuse.\par
+\b Question 14\par
+\b0 Given:\par
+11. class ClassA \{\}\par
+12. class ClassB extends ClassA \{\}\par
+13. class ClassC extends ClassA \{\}\par
+and:\par
+21. ClassA p0 = new ClassA();\par
+22. ClassB p1 = new ClassB();\par
+23. ClassC p2 = new ClassC();\par
+24. ClassA p3 = new ClassB();\par
+\i 25. \i0 ClassA p4 = new ClassC();\par
+Which three are valid? (Choose three.)\par
+A. p0 = p1;\par
+B. p1 =p2;\par
+C. p2 = p4;\par
+D. p2 = (ClassC)p1;\par
+E. p1 = (ClassB)p3;\par
+F. p2 = (ClassC)p4;\par
+\b Question 15\par
+\b0 Given:\par
+11. class Animal \{ public String noise() \{ return \ldblquote peep\rdblquote ; \} \}\par
+12. class Dog extends Animal \{\par
+13. public String noise() \{ return \ldblquote bark\rdblquote ; \}\par
+14. \}\par
+\i 15. \i0 class Cat extends Animal \{\par
+16. public String noise() \{ return \ldblquote meow\rdblquote ; \}\par
+17. \}\par
+.....\par
+30. Animal animal = new Dog();\par
+31. Cat cat = (Cat)animal;\par
+32. System.out.printIn(cat.noise());\par
+What is the result?\par
+A. peep\par
+B. bark\par
+C. meow\par
+D. Compilation fails.\par
+E. An exception is thrown at runtime.\par
+\b Question 16\par
+\b0 Given:\par
+11. abstract class Vehicle \{ public int speed() \{ return 0; \} \}\par
+12. class Car extends Vehicle \{ public int speed() \{ return 60; \} \}\par
+13. class RaceCar extends Car \{ public int speed() \{ return \i 150; \i0\}\}\par
+......\par
+21. RaceCar racer = new RaceCar();\par
+22. Car car = new RaceCar();\par
+23. Vehicle vehicle = new RaceCar();\par
+24. System.out.println(racer.speed() + \ldblquote , \lquote  + car.speed()\par
+\i 25. \i0 + \ldblquote , \ldblquote + vehicle.speed());\par
+What is the result?\par
+A. 0, 0,0\par
+B. 150, 60, 0\par
+C. Compilation fails.\par
+D. 150, 150, 150\par
+E. An exception is thrown at runtime.\par
+\b Question 17\par
+\b0 Given:\par
+10. abstract class A \{\par
+11. abstract void al();\par
+12. void a2() \{ \}\par
+13. \}\par
+14. class B extends A \{\par
+\i 15. \i0 void a1() \{ \}\par
+16. void a2() \{ \}\par
+17. \}\par
+18. class C extends B \{ void c1() \{ \} \}\par
+and:\par
+A x = new B(); C y = new C(); A z = new C();\par
+Which four are valid examples of polymorphic method calls? (Choose\par
+four.)\par
+A. x.a2();\par
+B. z.a2();\par
+C. z.c1();\par
+D. z.a1();\par
+E. y.c1();\par
+F. x.a1();\par
+\b Question 18\par
+\b0 Given:\par
+10. interface A \{ void x(); \}\par
+11. class B implements A \{ public void x() \{ \} public voidy() \{ \} \}\par
+12. class C extends B \{ public void x() \{\} \}\par
+And:\par
+20. java.util.List<A> list = new java.util.ArrayList<A>();\par
+21. list.add(new B());\par
+22. list.add(new C());\par
+23. for (A a:list) \{\par
+24. a.x();\par
+\i 25. \i0 a.y();;\par
+26. \}\par
+What is the result?\par
+A. The code runs with no output.\par
+B. An exception is thrown at runtime.\par
+C. Compilation fails because of an error in line 20.\par
+D. Compilation fails because of an error in line 21.\par
+E. Compilation fails because of an error in line 23.\par
+F. Compilation fails because of an error in line \i 25.\par
+\b\i0 Question 19\par
+\b0 Given:\par
+1. class SuperClass \{\par
+2. public A getA() \{\par
+3. return new A();\par
+4. \}\par
+\i 5. \i0\}\par
+6. class SubClass extends SuperClass \{\par
+\i 7. \i0 public B getA() \{\par
+8. return new B();\par
+\i 9. \i0\}\par
+10. \}\par
+Which is true?\par
+A. Compilation will succeed if A extends B.\par
+B. Compilation will succeed if B extends A.\par
+C. Compilation will always fail because of an error in line \i 7.\par
+\i0 D. Compilation will always fail because of an error in line 8.\par
+\b Question 20\par
+\b0 Given:\par
+1. interface A \{ public void aMethod(); \}\par
+2. interface B \{ public void bMethod(); \}\par
+3. interface C extends A,B \{ public void cMethod(); \}\par
+4. class D implements B \{\par
+\i 5. \i0 public void bMethod() \{ \}\par
+6. \}\par
+7. class E extends D implements C \{\par
+8. public void aMethod() \{ \}\par
+9. public void bMethod() \{ \}\par
+10. public void cMethod() \{ \}\par
+11. \}\par
+What is the result?\par
+A. Compilation fails because of an error in line 3.\par
+B. Compilation fails because of an error in line 7.\par
+C. Compilation fails because of an error in line 9.\par
+D. If you define D e = new E(), then e.bMethod() invokes the version\par
+of bMethod() defined in Line \i 5.\par
+\i0 E. If you define D e = (D)(new E()), then e.bMethod() invokes the\par
+version of bMethod() defined in Line \i 5.\par
+\i0 F. If you define D e = (D)(new E()), then e.bMethod() invokes the\par
+version of bMethod() defined in Line 9.\par
+\b Question 21\par
+\b0 Given:\par
+10. interface A \{ public int getValue() \}\par
+11. class B implements A \{\par
+12. public int getValue() \{ return 1; \}\par
+13. \}\par
+14. class C extends B \{\par
+\i 15. \i0 // insert code here\par
+16. \}\par
+Which three code fragments, inserted individually at line \i 15, \i0 make use\par
+of polymorphism? (Choose three.)\par
+A. public void add(C c) \{ c.getValue(); \}\par
+B. public void add(B b) \{ b.getValue(); \}\par
+C. public void add(A a) \{ a.getValue(); \}\par
+D. public void add(A a, B b) \{ a.getValue(); \}\par
+E. public void add(C c1, C c2) \{ c1.getValue(); \}\par
+\b Question 22\par
+\b0 Given:\par
+1. class ClassA \{\par
+2. public int numberOfinstances;\par
+3. protected ClassA(int numberOfinstances) \{\par
+4. this.numberOflnstances = numberOfinstances;\par
+\i 5. \i0\}\par
+6. \}\par
+7. public class ExtendedA extends ClassA \{\par
+8. private ExtendedA(int numberOfinstances) \{\par
+9. super(numberOflnstances);\par
+10. \}\par
+11. public static void main(String[] args) \{\par
+12. ExtendedA ext = new ExtendedA(420);\par
+13. System.out.print(ext.numberOflnstances);\par
+14. \}\par
+\i 15. \i0\}\par
+Which is true?\par
+A. 420 is the output.\par
+B. An exception is thrown at runtime.\par
+C. All constructors must be declared public.\par
+D. Constructors CANNOT use the private modifier.\par
+E. Constructors CANNOT use the protected modifier.\par
+\b Question 23\par
+\b0 147. Given:\par
+1. public class Base \{\par
+2. public static final String FOO = \ldblquote foo\rdblquote ;\par
+3. public static void main(String[] args) \{\par
+4. Base b = new Base();\par
+\i 5. \i0 Sub s = new Sub();\par
+6. System.out.print(Base.FOO);\par
+\i 7. \i0 System.out.print(Sub.FOO);\par
+8. System.out.print(b.FOO);\par
+9. System.out.print(s.FOO);\par
+10. System.out.print(((Base)s).FOO);\par
+11. \} \}\par
+12. class Sub extends Base \{public static final String FOO=bar;\}\par
+What is the result?\par
+A. foofoofoofoofoo\par
+B. foobarfoobarbar\par
+C. foobarfoofoofoo\par
+D. foobarfoobarfoo\par
+E. barbarbarbarbar\par
+F. foofoofoobarbar\par
+G. foofoofoobarfoo\par
+\b Question 24\par
+\b0 Which three statements are true? (Choose three.)\par
+A. A final method in class X can be abstract if and only if X is abstract.\par
+B. A protected method in class X can be overridden by any subclass of\par
+X.\par
+C. A private static method can be called only within other static\par
+methods in class X.\par
+D. A non-static public final method in class X can be overridden in any\par
+subclass of X.\par
+E. A public static method in class X can be called by a subclass of X\par
+without explicitly referencing the class X.\par
+F. A method with the same signature as a private final method in class\par
+X can be implemented in a subclass of X.\par
+G. A protected method in class X can be overridden by a subclass of A\par
+only if the subclass is in the same package as X.\par
+\b Question 25\par
+\b0 Given:\par
+1. class Pizza \{\par
+2. java.util.ArrayList toppings;\par
+3. public final void addTopping(String topping) \{\par
+4. toppings.add(topping);\par
+\i 5. \i0\}\par
+6. \}\par
+\i 7. \i0 public class PepperoniPizza extends Pizza \{\par
+8. public void addTopping(String topping) \{\par
+9. System.out.println(\rdblquote Cannot add Toppings\rdblquote );\par
+10. \}\par
+11. public static void main(String[] args) \{\par
+12. Pizza pizza = new PepperoniPizza();\par
+13. pizza.addTopping(\rdblquote Mushrooms\rdblquote );\par
+14. \}\par
+\i 15. \i0\}\par
+What is the result?\par
+A. Compilation fails.\par
+B. Cannot add Toppings\par
+C. The code runs with no output.\par
+D. A NullPointerException is thrown in Line 4.\par
+\b Question 26\par
+\b0 Given:\par
+1. class Super \{\par
+2. private int a;\par
+3. protected Super(int a) \{ this.a = a; \}\par
+4. \}\par
+.....\par
+11. class Sub extends Super \{\par
+12. public Sub(int a) \{ super(a); \}\par
+13. public Sub() \{ this.a= \i 5; \i0\}\par
+14. \}\par
+Which two, independently, will allow Sub to compile? (Choose two.)\par
+A. Change line 2 to:\par
+public int a;\par
+B. Change line 2 to:\par
+protected int a;\par
+C. Change line 13 to:\par
+public Sub() \{ this(5); \}\par
+D. Change line 13 to:\par
+public Sub() \{ super(5); \}\par
+E. Change line 13 to:\par
+public Sub() \{ super(a); \}\par
+\b Question 27\par
+\b0  .\par
+1. public class SimpleCalc \{\par
+2. public int value;\par
+3. public void calculate() \{ value += 7; \}\par
+4. \}\par
+And:\par
+1. public class MultiCalc extends SimpleCalc \{\par
+2. public void calculate() \{ value -= 3; \}\par
+3. public void calculate(int multiplier) \{\par
+4. calculate();\par
+5. super.calculate();\par
+6. value *=multiplier;\par
+7. \}\par
+8. public static void main(String[] args) \{\par
+9. MultiCalc calculator = new MultiCalc();\par
+10. calculator.calculate(2);\par
+11. System.out.println(\rdblquote Value is: \ldblquote + calculator.value);\par
+12. \}\par
+13. \}\par
+What is the result?\par
+A. Value is: 8\par
+B. Compilation fails.\par
+C. Value is: 12\par
+D. Value is: -12\par
+E. The code runs with no output.\par
+F. An exception is thrown at runtime.\par
+\b Question 28\par
+\b0 Given:\par
+10. public class Hello \{\par
+11. String title;\par
+12. int value;\par
+13. public Hello() \{\par
+14. title += \ldblquote  World\rdblquote ;\par
+15. \}\par
+16. public Hello(int value) \{\par
+17. this.value = value;\par
+18. title = \ldblquote Hello\rdblquote ;\par
+19. Hello();\par
+20. \}\par
+21. \}\par
+and:\par
+30. Hello c = new Hello(5);\par
+31. System.out.println(c.title);\par
+What is the result?\par
+A. Hello\par
+B. Hello World\par
+C. Compilation fails.\par
+D. Hello World \i 5\par
+\i0 E. The code runs with no output.\par
+F. An exception is thrown at runtime.\par
+\b Question 29\par
+\b0  .\par
+1. public class Car \{\par
+2. private int wheelCount;\par
+3. private String vin;\par
+4. public Car(String vin) \{\par
+\i 5. \i0 this.vin = vin;\par
+6. this.wheelCount = 4;\par
+7. \}\par
+8. public String drive() \{\par
+9. return \ldblquote zoom-zoom\rdblquote ;\par
+10. \}\par
+11. public String getInfo() \{\par
+12. return \ldblquote VIN: \ldblquote + vin + \ldblquote wheels: \ldblquote + wheelCount;\par
+13. \}\par
+14. \}\par
+And:\par
+1. public class MeGo extends Car \{\par
+2. public MeGo(String vin) \{\par
+3. this.wheelCount = 3;\par
+4. \}\par
+5. \}\par
+What two must the programmer do to correct the compilation errors?\par
+(Choose two.)\par
+A. insert a call to this() in the Car constructor\par
+B. insert a call to this() in the MeGo constructor\par
+C. insert a call to super() in the MeGo constructor\par
+D. insert a call to super(vin) in the MeGo constructor\par
+E. change the wheelCount variable in Car to protected\par
+F. change line 3 in the MeGo class to super.wheelCount = 3;\par
+\b Question 30\par
+\b0  .\par
+1. public class Employee \{\par
+2. String name;\par
+3. double baseSalary;\par
+4. Employee(String name, double baseSalary) \{\par
+5. this.name = name;\par
+6. this.baseSalary = baseSalary;\par
+7. \}\par
+8. \}\par
+And:\par
+1. public class Salesperson extends Employee \{\par
+2. double commission;\par
+3. public Salesperson(String name, double baseSalary,\par
+4. double commission) \{\par
+5. // insert code here\par
+6. \}\par
+7. \}\par
+Which code, inserted at line 7, completes the Salesperson constructor?\par
+A. this.commission = commission;\par
+B. superb();\par
+commission = commission;\par
+C. this.commission = commission;\par
+superb();\par
+D. super(name, baseSalary);\par
+this.commission = commission;\par
+E. super();\par
+this.commission = commission;\par
+F. this.commission = commission;\par
+super(name, baseSalary);\par
+\b Question 31\par
+\b0 Given:\par
+1. public class Blip \{\par
+2. protected int blipvert(int x) \{ return 0; \}\par
+3. \}\par
+4. class Vert extends Blip \{\par
+\i 5. \i0 // insert code here\par
+6. \}\par
+Which five methods, inserted independently at line \i 5, \i0 will compile?\par
+(Choose five.)\par
+A. public int blipvert(int x) \{ return 0; \}\par
+B. private int blipvert(int x) \{ return 0; \}\par
+C. private int blipvert(long x) \{ return 0; \}\par
+D. protected long blipvert(int x) \{ return 0; \}\par
+E. protected int blipvert(long x) \{ return 0; \}\par
+F. protected long blipvert(long x) \{ return 0; \}\par
+G. protected long blipvert(int x, int y) \{ return 0; \}\par
+\b Question32\par
+\b0 Given:\par
+10. public class Foo \{\par
+11. public int a;\par
+12. public Foo() \{ a = 3; \}\par
+13. public void addFive() \{ a += \i 5; \i0\}\par
+14. \}\par
+and:\par
+20. public class Bar extends Foo \{\par
+21. public int a;\par
+22. public Bar() \{ a = 8; \}\par
+23. public void addFive() \{ this.a +=\i 5; \i0\}\par
+24. \}\par
+invoked with:\par
+30. Foo foo = new Bar();\par
+31. foo.addFive();\par
+32. System.out.println(\rdblquote Value: \ldblquote + foo.a);\par
+What is the result?\par
+A. Value: 3\par
+B. Value: 8\par
+C. Value: 13\par
+D. Compilation fails.\par
+E. The code runs with no output.\par
+F. An exception is thrown at runtime.\par
+\b Question 33\par
+\b0 Given:\par
+10. public class SuperCaic \{\par
+11. protected static int multiply(int a, int b) \{ return a * b; \}\par
+12. \}\par
+and:\par
+20. public class SubCalc extends SuperCalc \{\par
+21. public static int multiply(int a, int b) \{\par
+22. int c = super.multiply(a, b);\par
+23. return c;\par
+24. \}\par
+\i 25. \i0\}\par
+and:\par
+30. SubCalc sc = new SubCalc();\par
+31. System.out.println(sc.multiply(3,4));\par
+32. System.out.println(SubCalc.multiply(2,2));\par
+What is the result?\par
+A. 12\par
+4\par
+B. The code runs with no output.\par
+C. An exception is thrown at runtime.\par
+D. Compilation fails because of an error in line 21.\par
+E. Compilation fails because of an error in line 22.\par
+F. Compilation fails because of an error in line 31.\par
+\b Question 34\par
+\b0 Given:\par
+1. public class Team extends java.util.LinkedList \{\par
+2. public void addPlayer(Player p) \{\par
+3. add(p);\par
+4. \}\par
+\i 5. \i0 public void compete(Team opponent) \{ /* more code here */ \}\par
+6. \}\par
+7. class Player \{ /* more code here */ \}\par
+Which two are true? (Choose two.)\par
+A. This code will compile.\par
+B. This code demonstrates proper design of an is-a relationship.\par
+C. This code demonstrates proper design of a has-a relationship.\par
+D. A Java programmer using the Team class could remove Player\par
+objects from a Team object.\par
+\b Question 35\par
+\b0 Which four are true? (Choose four.)\par
+A. Has-a relationships should never be encapsulated.\par
+B. Has-a relationships should be implemented using inheritance.\par
+C. Has-a relationships can be implemented using instance variables.\par
+D. Is-a relationships can be implemented using the extends keyword.\par
+E. Is-a relationships can be implemented using the implements\par
+keyword.\par
+F. The relationship between Movie and Actress is an example of an is-a\par
+relationship.\par
+G. An array or a collection can be used to implement a one-to-many\par
+has-a relationship.\par
+\b Question 36\par
+\b0 Which two are true about has-a and is-a relationships? (Choose two.)\par
+A. Inheritance represents an is-a relationship.\par
+B. Inheritance represents a has-a relationship.\par
+C. Interfaces must be used when creating a has-a relationship.\par
+D. Instance variables can be used when creating a has-a relationship.\par
+\b Question 37\par
+\b0 Given:\par
+10. interface Jumper \{ public void jump(); \}\par
+......\par
+20. class Animal \{\}\par
+......\par
+30. class Dog extends Animal \{\par
+31. Tail tail;\par
+32. \}\par
+......\par
+40. class Beagle extends Dog implements Jumper \{\par
+41. public void jump() \{ \}\par
+42. \}\par
+.......\par
+\i 50. \i0 class Cat implements Jumper \{\par
+\i 51. \i0 public void jump() \{ \}\par
+\i 52. \i0\}\par
+Which three are true? (Choose three.)\par
+A. Cat is-a Animal\par
+B. Cat is-a Jumper\par
+C. Dog is-a Animal\par
+D. Dog is-a Jumper\par
+E. Cat has-a Animal\par
+F. Beagle has-a Tail\par
+G. Beagle has-a Jumper\par
+\b Question 38\par
+\b0 Given:\par
+1. import java.util.*;\par
+2. public class Example \{\par
+3. public static void main(String[] args) \{\par
+4. // insert code here\par
+\i 5. \i0 set.add(new integer(2));\par
+6. set.add(new integer(l));\par
+7. System.out.println(set);\par
+8. \}\par
+9. \}\par
+Which code, inserted at line 4, guarantees that this program will\par
+output [1, 2]?\par
+A. Set set = new TreeSet();\par
+B. Set set = new HashSet();\par
+C. Set set = new SortedSet();\par
+D. List set = new SortedList();\par
+E. Set set = new LinkedHashSet();\par
+\b Question 39\par
+\b0 Given:\par
+1. import java.util.*;\par
+2. public class PQ \{\par
+3. public static void main(String[] args) \{\par
+4. PriorityQueue<String> pq = new PriorityQueue<String>();\par
+\i 5. \i0 pq.add(\rdblquote carrot\rdblquote );\par
+6. pq.add(\rdblquote apple\rdblquote );\par
+7. pq.add(\rdblquote banana\rdblquote );\par
+8. System.out.println(pq.poll() +\rdblquote :\rdblquote  + pq.peek());\par
+9. \}\par
+10. \}\par
+What is the result?\par
+A. apple:apple\par
+B. carrot:apple\par
+C. apple:banana\par
+D. banana:apple\par
+E. carrot:carrot\par
+F. carrot:banana\par
+\b Question 40\par
+\b0 Given:\par
+1. import java.util.*;\par
+2. public class WrappedString \{\par
+3. private String s;\par
+4. public WrappedString(String s) \{ this.s = s; \}\par
+\i 5. \i0 public static void main(String[] args) \{\par
+6. HashSet<Object> hs = new HashSet<Object>();\par
+7. WrappedString ws1 = new WrappedString(\rdblquote aardvark\rdblquote );\par
+8. WrappedString ws2 = new WrappedString(\rdblquote aardvark\rdblquote );\par
+9. String s1 = new String(\rdblquote aardvark\rdblquote );\par
+10. String s2 = new String(\rdblquote aardvark\rdblquote );\par
+11. hs.add(ws1); hs.add(ws2); hs.add(s1); hs.add(s2);\par
+12. System.out.println(hs.size()); \} \}\par
+What is the result?\par
+A. 0\par
+B. 1\par
+C. 2\par
+D. 3\par
+E. 4\par
+F. Compilation fails.\par
+G. An exception is thrown at runtime.\par
+\b Question 41\par
+\b0  .\par
+1. import java.util.*;\par
+2. public class TestSet \{\par
+3. enum Example \{ ONE, TWO, THREE \}\par
+4. public static void main(String[] args) \{\par
+\i 5. \i0 Collection coll = new ArrayList();\par
+6. coll.add(Example.THREE);\par
+7. coll.add(Example.THREE);\par
+8. coll.add(Example.THREE);\par
+9. coll.add(Example.TWO);\par
+10. coll.add(Example.TWO);\par
+11. coll.add(Example.ONE);\par
+12. Set set = new HashSet(coll);\par
+13. \}\par
+14. \}\par
+Which statement is true about the set variable on line 12?\par
+A. The set variable contains all six elements from the coll collection,\par
+and the order is guaranteed to be preserved.\par
+B. The set variable contains only three elements from the coll\par
+collection, and the order is guaranteed to be preserved.\par
+C. The set variable contains all six elements from the coil collection,\par
+but the order is NOT guaranteed to be preserved.\par
+D. The set variable contains only three elements from the coil\par
+collection, but the order is NOT guaranteed to be preserved.\par
+\b Question 42\par
+\b0 Given:\par
+1. public class Score implements Comparable<Score> \{\par
+2. private int wins, losses;\par
+3. public Score(int w, int 1) \{ wins = w; losses = 1; \}\par
+4. public int getWins() \{ return wins; \}\par
+\i 5. \i0 public int getLosses() \{ return losses; \}\par
+6. public String toString() \{\par
+7. return \ldblquote <\ldblquote  + wins + \ldblquote ,\ldblquote  + losses + \ldblquote >\rdblquote ;\par
+8. \}\par
+9. // insert code here\par
+10. \}\par
+Which method will complete this class?\par
+A. public int compareTo(Object o) \{/*mode code here*/\}\par
+B. public int compareTo(Score other) \{/*more code here*/\}\par
+C. public int compare(Score s1,Score s2)\{/*more code here*/\}\par
+D. public int compare(Object o1,Object o2)\{/*more code here*/\}\par
+\b Question 43\par
+\b0 A programmer has an algorithm that requires a java.util.List that\par
+provides an efficient implementation of add(0,object), but does\par
+NOT need to support quick random access. What supports these\par
+requirements?\par
+A. java.util.Queue\par
+B. java.util.ArrayList\par
+C. java.util.LinearList\par
+D. java.util.LinkedList\par
+\b Question 44\par
+\b0 Given:\par
+11. public class Person \{\par
+12. private String name, comment;\par
+13. private int age;\par
+14. public Person(String n, int a, String c) \{\par
+\i 15. \i0 name = n; age = a; comment = c;\par
+16. \}\par
+17. public boolean equals(Object o) \{\par
+18. if(! (o instanceof Person)) return false;\par
+19, Person p = (Person)o;\par
+20. return age == p.age && name.equals(p.name);\par
+21. \}\par
+22. \}\par
+What is the appropriate definition of the hashCode method in class\par
+Person?\par
+A. return super.hashCode();\par
+B. return name.hashCode() + age * 7;\par
+C. return name.hashCode() + comment.hashCode() /2;\par
+D. return name.hashCode() + comment.hashCode() / 2 - age * 3;\par
+\b Question 45\par
+\b0 Given:\par
+11. public class Key \{\par
+12. private long id1;\par
+13. private long 1d2;\par
+14.\par
+\i 15. // \i0 class Key methods\par
+16. \}\par
+A programmer is developing a class Key, that will be used as a key in\par
+a standard java.util.HashMap. Which two methods should be\par
+overridden to assure that Key works correctly as a key? (Choose two.)\par
+A. public int hashCode()\par
+B. public boolean equals(Key k)\par
+C. public int compareTo(Object o)\par
+D. public boolean equals(Object o)\par
+E. public boolean compareTo(Key k)\par
+\b Question 46\par
+\b0 Given:\par
+11. public class Person \{\par
+12. private name;\par
+13. public Person(String name) \{\par
+14. this.name = name;\par
+\i 15. \i0\}\par
+16. public boolean equals(Object o) \{\par
+17. if( !o instanceof Person ) return false;\par
+18. Person p = (Person) o;\par
+19. return p.name.equals(this.name);\par
+20. \}\par
+21. \}\par
+Which is true?\par
+A. Compilation fails because the hashCode method is not overridden.\par
+B. A HashSet could contain multiple Person objects with the same\par
+name.\par
+C. All Person objects will have the same hash code because the\par
+hashCode method is not overridden.\par
+D. If a HashSet contains more than one Person object with\par
+name=\rdblquote Fred\rdblquote , then removing another Person, also with name=\rdblquote Fred\rdblquote ,\par
+will remove them all.\par
+\b Question 47\par
+\b0 Given:\par
+1. public class Person \{\par
+2. private String name;\par
+3. public Person(String name) \{ this.name = name; \}\par
+4. public boolean equals(Person p) \{\par
+5. return p.name.equals(this.name);\par
+6. \}\par
+7. \}\par
+Which is true?\par
+A. The equals method does NOT properly override the Object.equals\par
+method.\par
+B. Compilation fails because the private attribute p.name cannot be\par
+accessed in line \i 5.\par
+\i0 C. To work correctly with hash-based data structures, this class must\par
+also implement the hashCode method.\par
+D. When adding Person objects to a java.util.Set collection, the equals\par
+method in line 4 will prevent duplicates.\par
+\b Question 48\par
+\b0 Which two statements are true about the hashCode method? (Choose\par
+two.)\par
+A. The hashCode method for a given class can be used to test for\par
+object equality and object inequality for that class.\par
+B. The hashCode method is used by the java.util.SortedSet collection\par
+class to order the elements within that set.\par
+C. The hashCode method for a given class can be used to test for\par
+object inequality, but NOT object equality, for that class.\par
+D. The only important characteristic of the values returned by a\par
+hashCode method is that the distribution of values must follow a\par
+Gaussian distribution.\par
+E. The hashCode method is used by the java.util.HashSet collection\par
+class to group the elements within that set into hash buckets for\par
+swift retrieval.\par
+\b Question 49\par
+\b0 Given:\par
+enum Example \{ ONE, TWO, THREE \}\par
+Which is true?\par
+A. The expressions (ONE == ONE) and ONE.equals(ONE) are both\par
+guaranteed to be true.\par
+B. The expression (ONE < TWO) is guaranteed to be true and\par
+ONE.compareTo(TWO) is guaranteed to be less than one.\par
+C. The Example values cannot be used in a raw java.util.HashMap;\par
+instead, the programmer must use a java.util.EnumMap.\par
+D. The Example values can be used in a java.util.SortedSet, but the\par
+set will NOT be sorted because enumerated types do NOT implement\par
+java.lang.Comparable.\par
+\b\par
+Question 50\par
+\b0  \par
+1. import java.util.*;\par
+2. class KeyMaster \{\par
+3. public int i;\par
+4. public KeyMaster(int i) \{ this.i = i; \}\par
+\i 5. \i0 public boolean equals(Object o) \{ return i == ((KeyMaster)o).i; \}\par
+6. public int hashCode() \{ return i; \}\par
+7. \}\par
+8. public class MapIt \{\par
+9. public static void main(String[] args) \{\par
+10. Set<KeyMaster> set = new HashSet<KeyMaster>();\par
+11. KeyMaster k1 = new KeyMaster(1);\par
+12. KeyMaster k2 = new KeyMaster(2);\par
+13. set.add(k1); set.add(k1);\par
+14. set.add(k2); set.add(k2);\par
+\i 15. \i0 System.out.print(set.size() + \ldblquote :\rdblquote );\par
+16. k2.i = 1;\par
+17. System.out.print(set.size() + \ldblquote :\rdblquote );\par
+18. set.remove(k1);\par
+19. System.out.print(set.size() + \ldblquote :\rdblquote );\par
+20. set.remove(k2);\par
+21. System.out.print(set.size());\par
+22. \}\par
+23. \}\par
+What is the result?\par
+A. 4:4:2:2\par
+B. 4:4:3:2\par
+C. 2:2:1:0\par
+D. 2:2:0:0\par
+E. 2:1:0:0\par
+F. 2:2:1:1\par
+G. 4:3:2:1\par
+\b\par
+}
+ 
