@@ -17,11 +17,15 @@ import com.mycompany.service.UserService;
 import com.mycompany.shared.UserDto;
 
 @RestController
-@RequestMapping("/")
+
 public class UserController {
 	@Autowired
 	private UserService userService;
-	
+	@RequestMapping("/")
+	public String home()
+	{
+		return "ok";
+	}
 	@PostMapping("/users")
 	public ResponseEntity<CreateUserResponseModel> create(@RequestBody CreateUserRequestModel userDetail)
 	{
