@@ -1,0 +1,4 @@
+--->d,c,a,a,a,d,a,a,a,c,b,a,c,a,a
+--->c,c,b,a,a,a,a,b,a,b,c,b,a,a,d
+--->c,b,d,b,b,c,a,b,a,b,a,c,a,b,d
+--->c,c,a,a,b
