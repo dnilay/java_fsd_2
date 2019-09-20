@@ -1,0 +1,1080 @@
+PART-A
+==================
+1.Beans can be created by which of the following properties?
+a) Scope
+b) Property
+c) Class
+d) It’s own constructor
+
+2.Which attribute is used to specify class name of the bean?
+a) name
+b) id
+c) class
+d) constructor-args
+
+3.Which of the following method can be used to used to instantiate a method?
+a) static factory method
+b) default-init method
+c) destroy method
+d) lazy-init method
+
+4. Purpose of Static Factory Method?
+a) Static method to create an object
+b) Initialize bean
+c) All of the mentioned
+d) None of the mentioned
+
+5.Which attribute is used to specify static factory-method?
+a) factory-method
+b) default-init method
+c) destroy method
+d) lazy-init method
+
+6. Exception thrown by factory method?
+a) IllegalArgumentException
+b) IndexOutofBoundException
+c) ClassPathNotFoundException
+d) BeanCreationException
+
+7.What will be the output?
+Snippet of Code:
+
+public class CreatePro {
+    String ProductId;
+    public CreatePro(String ProductId)	{
+        this.ProductId = ProductId;
+    }
+ 
+public static Product creation_Product(String productId) {	
+    System.out.println("Bean Created");
+    if ("aaa".equals(productId)) {
+        return new Battery("AAA", 2.5);
+    } else if ("cdrw".equals(productId)) {
+        return new Disc("CD-RW", 1.5);
+    }
+}
+}
+<beans ...>
+<bean id="aaa" class="CreatePro"
+    factory-method="createProduct">
+    <constructor-arg value="aaa" />
+</bean>
+<bean id="cdrw" class="CreatePro"
+    factory-method="createProduct">
+    <constructor-arg value="cdrw" />
+</bean>
+</beans>
+
+a) BeanCreationException
+b) Bean Created
+c) ClassPathException
+d) None of the mentioned
+
+8.. A bean can have more than one name using multiple id attributes?
+a) True
+b) False
+
+9.Bean’s naming convention:-
+starts with lowercase, camelcase from then on.?
+a) True
+b) False
+
+10.Beans can be created by which of the following properties?
+a) Static factory-method
+b) Instance Factory-Method
+c) All of the mentioned
+d) None of the mentioned
+
+11. The bean instance is mentioned by the factory-method attribute, while the factory method is signified by the factory-bean attribute?
+a) True
+b) False
+
+12. One factory class can also hold more than one factory method True/False?
+a) True
+b) False
+
+13. Snippet of Code:
+
+public class CreatePro 
+{
+     String ProductId;
+     public CreatePro(String ProductId)	
+     this.ProductId = ProductId;
+}
+ 
+public static Product creation_Product(String productId) 
+{	
+     System.out.println("Bean Created");
+     if ("aaa".equals(productId)) 
+     {
+        return new Battery("AAA", 2.5);
+     } 
+     else if ("cdrw".equals(productId)) 
+     {
+	return new Disc("CD-RW", 1.5);
+     }
+ 
+}
+ 
+  <beans ...>
+	<bean id="aaa" class="CreatePro"
+	factory-method="createProduct">
+	<constructor-arg value="aaa" />
+	</bean>
+	<bean id="cdrw" class="CreatePro"
+	factory-method="createProduct">
+	<constructor-arg value="cdrw" />
+	</bean>
+  </beans>
+  slight change in XML file:-
+ 
+<bean id="aaa" factory-bean="productCreator"
+factory-method="createProduct">
+<constructor-arg value="aaa" />
+</bean>
+<bean id="cdrw" factory-bean="productCreator"
+factory-method="createProduct">
+<constructor-arg value="cdrw" />
+</bean>
+What will be the output:-
+a) BeanCreationException
+b) IllegalArgumentException
+c) New Product will be created
+d) None of the mentioned
+
+
+14. Instance Factory method main purpose is to encapsulate the object-creation process in a method of another object instance.
+a) True
+b) False
+
+
+15. Which Attribute is used to specify the bean declared?
+a) factory-bean
+b) scope
+c) getBean
+d) declareBean
+
+PART-B
+==================
+1. Declaring Beans using:-
+a) Static field
+b) Object Properties
+c) All of the mentioned
+d) None of the mentioned
+
+
+2. Ways to declare bean from a static field?
+a) FieldRetrievingFactoryBean
+b) util:contant
+c) All of the mentioned
+d) None of the mentioned
+
+
+3. Declaring a bean from a static field requires a built-in factory bean FieldRetrievingFactoryBean and fully qualified field name or instance field is specified in the list property.
+a) True
+b) False
+
+
+4. A)
+
+      public abstract class Product {
+	public static final Product AAA = new Battery("AAA", 2.5);
+	public static final Product CDRW = new Disc("CD-RW", 1.5);
+	...
+      }
+      <beans ...>
+	<bean id="aaa" class="org.springframework.beans.factory.config.
+	FieldRetrievingFactoryBean">
+	<property name="staticField">
+	<value>com.shop.Product.AAA</value>
+	</property>
+	</bean>
+	<bean id="cdrw" class="org.springframework.beans.factory.config.
+	FieldRetrievingFactoryBean">
+	<property> name="staticField"
+	valuecom.shop.Product.CDRW/value
+	</property>
+	</bean>
+     </beans>
+ 
+   B) Product aaa = com.shop.Product.AAA;
+      Product cdrw = com.shop.Product.CDRW;
+a) A and B are equivalent
+b) A and B provides different functionality
+c) Runtime Error in A
+d) Exception in B
+
+
+5. As an alternative to specifying the field name in the staticField property explicitly, you can set it as the bean name of FieldRetrievingFactoryBean.
+a) True
+b) False
+
+
+6. Is this bean configuration metadata correct?
+
+   <beans ...>
+	bean id="com.shop.Product.AAA"
+	class="org.springframework.beans.factory.config.
+	FieldRetrievingFactoryBean" /
+	bean id="com.shop.Product.CDRW"
+	class="org.springframework.beans.factory.config.
+	FieldRetrievingFactoryBean" /
+   </beans>
+a) Yes
+b) No
+
+
+7. Which tag is also allowed by static field?
+a) util:constant
+b) list
+c) set
+d) constructor-args
+
+
+8. Is this bean configuration correct?
+
+    <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/util/spring-util-3.0.xsd"
+	util:constant id="aaa"
+	static-field="com.shop.Product.AAA" />
+	util:constant id="cdrw"
+	static-field="com.shop.Product.CDRW" />
+  </beans>
+a) Yes
+b) No
+
+9. Declaring bean form object properties can be done using:-
+a) PropertyPathFactoryBean
+b) util:constant
+c) None of the mentioned
+d) All of the mentioned
+
+10. Inner Bean can be retrieved by it’s name.
+a) True
+b) False
+
+11. PropertyPathFactoryBean declares a bean from an:-
+a) Object Property
+b) Property Path
+c) All of the mentioned
+d) None of the mentioned
+
+12. The propertyPath property of PropertyPathFactoryBean can accept only a single property name.
+a) True
+b) False
+
+13. Alternate way of PropertyPathFactoryBean to declare a bean.
+a) util:property-path tag
+b) util:constant tag
+c) None of the mentioned
+d) All of the mentioned
+
+14. We can combine target Object and propertyPath properties as bean name/id of PropertyPathFactoryBean.
+a) True
+b) False
+
+15. The Spring Expression Language can be accessed by:-
+a) XML configuration
+b) Annotations
+c) None of the mentioned
+d) All of the mentioned
+
+
+PART-C
+==================
+1. A bean can be requested by:-
+a) getBean method
+b) reference from another bean using autowiring, property etc
+c) all of the mentioned
+d) none of the mentioned
+
+2. Which attribute is used to set the scope of the bean?
+a) setScope
+b) scope
+c) getScope
+d) none of the mentioned
+
+3. Which one is the default scope of the beans?
+a) Prototype
+b) Session
+c) Request
+d) Singleton
+
+4. Which scope creates a new bean instance each time when requested?
+a) Singleton
+b) Prototype
+c) Session
+d) Request
+
+5. Session Creates a single bean instance per HTTP request, only valid in the context of a web application?
+a) True
+b) False
+
+6. Which of the following are considered valid beans?
+a) Singleton
+b) Prototype
+c) All of the mentioned
+d) None of the mentioned
+
+7. What will be the output?
+
+public class ShoppingCart 
+{
+    private List<Product> items = new ArrayList<Product>();
+    public void addItem(Product item) 
+    {
+       items.add(item);
+    }
+    public List<Product> getItems() 
+    {
+       return items;
+    }
+}
+ 
+   <beans ...>
+	<bean id="aaa" class="com.shop.Battery">
+	<property name="name" value="AAA" />
+	<property name="price" value="2.5" />
+	</bean>
+	<bean id="cdrw" class="com.shop.Disc">
+	<property name="name" value="CD-RW" />
+	<property name="price" value="1.5" />
+	</bean>
+	<bean id="dvdrw" class="com.shop.Disc">
+	<property name="name" value="DVD-RW" />
+	<property name="price" value="3.0" />
+	</bean>
+	<bean id="shoppingCart" class="com.shop.ShoppingCart" />
+   </beans>
+ 
+   import org.springframework.context.ApplicationContext;
+   import org.springframework.context.support.ClassPathXmlApplicationContext;
+   public class Main 
+   {
+	public static void main(String[] args) {
+	ApplicationContext context =
+	new ClassPathXmlApplicationContext("beans.xml");
+	Product aaa = (Product) context.getBean("aaa");
+	Product cdrw = (Product) context.getBean("cdrw");
+	Product dvdrw = (Product) context.getBean("dvdrw");
+	ShoppingCart cart1 = (ShoppingCart) context.getBean("shoppingCart");
+	cart1.addItem(aaa);
+	cart1.addItem(cdrw);
+	System.out.println("Shopping cart 1 contains " + cart1.getItems());
+	ShoppingCart cart2 = (ShoppingCart) context.getBean("shoppingCart");
+	cart2.addItem(dvdrw);
+	System.out.println("Shopping cart 2 contains " + cart2.getItems());
+	}
+   }
+a) Shopping cart 1 contains (AAA 2.5, CD-RW 1.5)
+Shopping cart 2 contains (AAA 2.5, CD-RW 1.5, DVD-RW 3.0)
+b) Shopping cart 1 contains (AAA 2.5, CD-RW 1.5)
+Shopping cart 2 contains (DVD-RW 3.0)
+c) BeanCreationException
+d) None of the mentioned
+
+
+8. In above question if scope of shoppingCart named bean is prototype, then what will be the output?
+What will be the output?
+a) Shopping cart 1 contains (AAA 2.5, CD-RW 1.5)
+Shopping cart 2 contains (AAA 2.5, CD-RW 1.5, DVD-RW 3.0)
+b) Shopping cart 1 contains (AAA 2.5, CD-RW 1.5)
+Shopping cart 2 contains (DVD-RW 3.0)
+c) BeanCreationException
+d) None of the mentioned
+
+
+9. Which interface is used to perform initialization of beans?
+a) InitializingBean
+b) Disposablebean
+c) None of the mentioned
+d) All of the mentioned
+
+
+10. Which interface is used to perform destruction of beans?
+a) InitializingBean
+b) Disposablebean
+c) None of the mentioned
+d) All of the mentioned
+
+
+11. Alternate way of initialization method is:-
+a) init-method attribute
+b) afterPropertiesSet
+c) destroy-method attribute
+d) none of the mentioned
+
+
+12. Alternate way of destruction method is:-
+a) init-method attribute
+b) afterPropertiesSet
+c) destroy-method attribute
+d) none of the mentioned
+
+
+13. Which annotation is used as a substitute of initialization method?
+a) @PostConstruct
+b) @PreDestroy
+c) None of the mentioned
+d) All of the mentioned
+
+
+14.Which annotation is used as a substitute of destroy method?
+a) @PostConstruct
+b) @PreDestroy
+c) None of the mentioned
+d) All of the mentioned
+
+
+15. Which configuration can be used for Dependency Injection?
+a) XML Configuration
+b) Annotation Configuration
+c) Java Based Configuration
+d) All of the mentioned
+
+PART-D
+==================
+1. Method used to process bean before initialization callback
+a) scope
+b) postProcessAfterInitialization()
+c) postProcessBeforeInitialization()
+d) it’s own constructor
+
+2. Method used to process bean after initialization callback
+a) scope
+b) getBean
+c) postProcessAfterInitialization()
+d) it’s own constructor
+
+3. Which method is used to gracefully shutdown all the bean processes after closing the spring container?
+a) shutdownHook
+b) destroy method
+c) none of the mentioned
+d) all of the mentioned
+
+4. Which method is used to register BeanPostProcessor?
+a) addBeanPostProcessors
+b) registerBeanPostProcessors
+c) addBeanProcessors
+d) none of the mentioned
+
+5. In application context, BeanPost Processors are registered using addBeanPostProcessors method
+a) True
+b) False
+
+6. Which Interface for bean Post Processor is used to distinguish between checked beans
+a) StorageConfig
+b) Marker
+c) None of the mentioned
+d) All of the mentioned
+
+7. Which method of bean post processors is used to check path existence
+a) getPath
+b) setPath
+c) value
+d) auto-wiring
+
+8. It’s possible to replace the original bean instance with a brand-new instance in your bean post processor
+a) True
+b) False
+
+9. PathCheckingBeanPostProcessor will not work properly in case of:-
+a) XML Configuration
+b) Java based Configuration
+c) JSR Annotation
+d) None of the mentioned
+
+10. Which bean factory post processor externalizes part of the bean configurations into a properties file
+a) PropertyPlaceholderConfigurer
+b) PropertyPlaceholderRegister
+c) PropertyGetPath
+d) None of the mentioned
+
+11. Which interface defines methods for resolving text messages
+a) MessageSource
+b) ApplicationListener
+c) ApplicationContextListener
+d) TextEvent
+
+12. Which interface is used to listen to certain events
+a) ApplicationListener
+b) ContextListener
+c) EventListener
+d) None of the mentioned
+
+13. Which method is used to publish your own custom event
+a) contextPublish
+b) publishEvent
+c) applicationEventPublish
+d) addEvent
+
+14. Which of the following is a well known recognized event
+a) ContextCloasedEvemt
+b) ContextRefreshedEvent
+c) RequestHandledEvent
+d) All of the mentioned
+
+15. Which event is provoked when web request comes into action
+a) ContextClosedEvent
+b) ContextStoppedEvent
+c) SessionEvent
+d) RequestHandledEvent
+
+PART-E
+===========
+1. Which of the following is used to convert property values to text Values?
+a) property Editor
+b) property setter
+c) property getter
+d) none of the mentioned
+
+2. Which property editor is used to specify a URL String for a property of the URL type?
+a) java.net.*
+b) java.io.*
+c) java.net.URL
+d) none of the mentioned
+
+3. Which interface is used to create your own property editors?
+a) CustomEditorConfigurer
+b) RegisterCustomEditor
+c) PropertyEditorConfigurer
+d) None of the mentioned
+
+4. Which of the following property editors are registered by Spring?
+a) CustomNumberEditor
+b) FileEditor
+c) CustomDateEditor
+d) CustomNetEditor
+
+5. What are the ways to create custom Property Editors?
+a) implement PropertyEditor interface
+b) extend PropertyEditorSupport Class
+c) none of the mentioned
+d) all of the mentioned
+
+6. Method which converts property into a string value
+a) getAsText
+b) setAsText
+c) regText
+d) None of the mentioned
+
+7. Method that converts string into a property value
+a) getAsText
+b) setAsText
+c) regText
+d) None of the mentioned
+
+8. The property value is retrieved by:-
+a) getValue method
+b) setValue method
+c) none of the mentioned
+d) all of the mentioned
+
+9. For a property editor to be searched correctly, it must be located in the same package as the target class, and the name must be Editor’s name
+a) True
+b) False
+
+10. Which package is used for periodic work
+a) java.lang.Thread
+b) java.util.TimerTask
+c) java.util.Timer
+d) java.util.concurrent
+
+11. Which subinterface provides functionality for managing Threads and their events
+a) ExecutorService
+b) ThreadService
+c) All of the mentioned
+d) None of the mentioned
+
+12. Method provided by ExectuorService which returns a Future < T >
+a) submit
+b) publish
+c) addService
+d) registerService
+
+13. Which method provided by ExecutorService is used to check whether job is finished or cancelled
+a) Future.isDone()
+b) Future.isCancelled()
+c) None of the mentioned
+d) All of the mentioned
+
+14. The Quartz integration and message driven POJO container doesn’t needs TaskExecutor Services
+a) True
+b) False
+
+15. Which of the following class’s instance is used by TimerTaskExecutor for managing jobs
+a) java.util.Timer
+b) java.util.Date
+c) java.util.HashMap
+d) none of the mentioned
+
+PART-F
+===========
+1. A bean can be requested by:-
+a) getBean method
+b) reference from another bean using autowiring, property etc
+c) all of the mentioned
+d) none of the mentioned
+
+2. Which attribute is used to set the scope of the bean?
+a) setScope
+b) scope
+c) getScope
+d) none of the mentioned
+
+3. Which one is the default scope of the beans?
+a) Prototype
+b) Session
+c) Request
+d) Singleton
+
+4. Which scope creates a new bean instance each time when requested?
+a) Singleton
+b) Prototype
+c) Session
+d) Request
+
+5. Session Creates a single bean instance per HTTP request, only valid in the context of a web application?
+a) True
+b) False
+
+6. Which of the following are considered valid beans?
+a) Singleton
+b) Prototype
+c) All of the mentioned
+d) None of the mentioned
+
+7. What will be the output?
+
+public class ShoppingCart 
+{
+    private List<Product> items = new ArrayList<Product>();
+    public void addItem(Product item) 
+    {
+       items.add(item);
+    }
+    public List<Product> getItems() 
+    {
+       return items;
+    }
+}
+ 
+   <beans ...>
+	<bean id="aaa" class="com.shop.Battery">
+	<property name="name" value="AAA" />
+	<property name="price" value="2.5" />
+	</bean>
+	<bean id="cdrw" class="com.shop.Disc">
+	<property name="name" value="CD-RW" />
+	<property name="price" value="1.5" />
+	</bean>
+	<bean id="dvdrw" class="com.shop.Disc">
+	<property name="name" value="DVD-RW" />
+	<property name="price" value="3.0" />
+	</bean>
+	<bean id="shoppingCart" class="com.shop.ShoppingCart" />
+   </beans>
+ 
+   import org.springframework.context.ApplicationContext;
+   import org.springframework.context.support.ClassPathXmlApplicationContext;
+   public class Main 
+   {
+	public static void main(String[] args) {
+	ApplicationContext context =
+	new ClassPathXmlApplicationContext("beans.xml");
+	Product aaa = (Product) context.getBean("aaa");
+	Product cdrw = (Product) context.getBean("cdrw");
+	Product dvdrw = (Product) context.getBean("dvdrw");
+	ShoppingCart cart1 = (ShoppingCart) context.getBean("shoppingCart");
+	cart1.addItem(aaa);
+	cart1.addItem(cdrw);
+	System.out.println("Shopping cart 1 contains " + cart1.getItems());
+	ShoppingCart cart2 = (ShoppingCart) context.getBean("shoppingCart");
+	cart2.addItem(dvdrw);
+	System.out.println("Shopping cart 2 contains " + cart2.getItems());
+	}
+   }
+a) Shopping cart 1 contains (AAA 2.5, CD-RW 1.5)
+Shopping cart 2 contains (AAA 2.5, CD-RW 1.5, DVD-RW 3.0)
+b) Shopping cart 1 contains (AAA 2.5, CD-RW 1.5)
+Shopping cart 2 contains (DVD-RW 3.0)
+c) BeanCreationException
+d) None of the mentioned
+
+8. In above question if scope of shoppingCart named bean is prototype, then what will be the output?
+What will be the output?
+a) Shopping cart 1 contains (AAA 2.5, CD-RW 1.5)
+Shopping cart 2 contains (AAA 2.5, CD-RW 1.5, DVD-RW 3.0)
+b) Shopping cart 1 contains (AAA 2.5, CD-RW 1.5)
+Shopping cart 2 contains (DVD-RW 3.0)
+c) BeanCreationException
+d) None of the mentioned
+
+9. Which interface is used to perform initialization of beans?
+a) InitializingBean
+b) Disposablebean
+c) None of the mentioned
+d) All of the mentioned
+
+10. Which interface is used to perform destruction of beans?
+a) InitializingBean
+b) Disposablebean
+c) None of the mentioned
+d) All of the mentioned
+
+11. Alternate way of initialization method is:-
+a) init-method attribute
+b) afterPropertiesSet
+c) destroy-method attribute
+d) none of the mentioned
+
+12. Alternate way of destruction method is:-
+a) init-method attribute
+b) afterPropertiesSet
+c) destroy-method attribute
+d) none of the mentioned
+
+13. Which annotation is used as a substitute of initialization method?
+a) @PostConstruct
+b) @PreDestroy
+c) None of the mentioned
+d) All of the mentioned
+
+14.Which annotation is used as a substitute of destroy method?
+a) @PostConstruct
+b) @PreDestroy
+c) None of the mentioned
+d) All of the mentioned
+
+15. Which configuration can be used for Dependency Injection?
+a) XML Configuration
+b) Annotation Configuration
+c) Java Based Configuration
+d) All of the mentioned
+
+PART-G
+===========
+1. Class which declares a number of overloaded update() template methods to control the overall update process.
+a) org.springframework.jdbc.core.JdbcTemplate
+b) org.springframework.jdbc.core.*
+c) org.springframework.jdbc.*
+d) none of the mentioned
+
+2. You implement this interface to override the statement creation task.
+a) PreparedStatement
+b) PreparedStatementCreator
+c) PreparedCreator
+d) None of the mentioned
+
+3. When implementing the PreparedStatementCreator interface, you will get the database connection as the createPreparedStatement() method’s argument.
+a) True
+b) False
+
+4. It is better to implement the PreparedStatementCreator interface and other callback interfaces as inner classes if they are used within one method only.
+a) True
+b) False
+
+5. PreparedStatementSetter, as its name indicates, create a PreparedStatement object on this connection the parameter as well as binding task of the overall update process.
+a) True
+b) False
+
+6. The JdbcTemplate class offers template method for batch update operations.
+a) batchUpdate()
+b) update()
+c) all of the mentioned
+d) none of the mentioned
+
+7. The JdbcTemplate class declares a number of overloaded query() template methods to control the overall query process.
+a) True
+b) False
+
+8. The primary interface that allows you to process the current row of the result set.
+a) PreparedStatementSetter
+b) PreparedStatementCreator
+c) RowCallbackHandler
+d) All of the mentioned
+9. RowCallbackHandler purpose is to map a single row of the result set to a customized object.
+a) True
+b) False
+
+10. Method of RowMapper interface in which, you have to construct the object that represents a row and return it as the method’s return value.
+a) mapRow()
+b) query()
+c) update()
+d) none of the mentioned
+
+11. RowMapper implementation which can automatically map a row to a new instance of the specified class.
+a) BeanPropertyRowMapper
+b) BeanPropertyRow
+c) All of the mentioned
+d) None of the mentioned
+
+12. Method which provides list of maps.
+a) queryForList()
+b) update
+c) query()
+d) all of the mentioned
+
+13. Spring JDBC framework offers a convenient class, to simplify your DAO implementation.
+a) org.springframework.jdbc.core.support
+b) org.springframework.jdbc.core.support.JdbcDaoSupport
+c) all of the mentioned
+d) none of the mentioned
+
+14. The org.springframework.jdbc.core.support.JdbcDaoSupport class has a setDataSource() method and a setJdbcTemplate() method.
+a) True
+b) False
+
+15. Method to retrieve the JDBC template.
+a) setJdbcTemplate()
+b) getTemplate()
+c) getJdbc()
+d) getJdbcTemplate()
+
+PART-H
+===========
+1. JdbcTemplate that takes advantage of Java 1.5 features such as autoboxing, generics, and variable-length arguments to simplify its usage.
+a) org.springframework.jdbc.core.JdbcTemplate
+b) org.springframework.jdbc.core.simple.SimpleJdbcTemplate
+c) org.springframework.jdbc.*
+d) none of the mentioned
+
+2. JdbcTemplate require statement parameters to be passed as an object array.
+a) True
+b) False
+
+3. To use SimpleJdbcTemplate:-
+a) instantiate it directly
+b) retrieve its instance by extending the SimpleJdbcDaoSupport class
+c) all of the mentioned
+d) none of the mentioned
+
+4. SimpleJdbcTemplate offers a convenient batch update method in the form of:-
+a) Vector
+b) Set
+c) Map
+d) List
+
+5. Method has a warning from the Java compiler because of an unchecked conversion from List to List.
+a) findAll()
+b) query()
+c) update()
+d) batchUpdate()
+
+6. The return type of the queryForObject() method will be determined by the class argument (e.g., String.class).
+a) True
+b) False
+
+7. Named SQL parameters are specified by name (starting with a colon) rather than by position.
+a) True
+b) False
+
+8. Named parameters are supported only in SimpleJdbcTemplate.
+a) True
+b) False
+
+9. Implementations of the SqlParameterSource interface:-
+a) MapSqlParameterSource
+b) BeanPropertySqlParameterSource
+c) none of the mentioned
+d) all of the mentioned
+
+10. The Spring framework offers a consistent data access exception-handling mechanism for its data access module.
+a) True
+b) False
+
+11. In your DAO methods, you neither need to surround the code with a try/catch block nor declare throwing an exception in the method signature.
+a) True
+b) False
+
+12. The direct parent class of DataAccessException is:-
+a) RuntimeException
+b) NestedRuntimeException
+c) Exception
+d) Throwable
+
+13. Which concrete exception in the DataAccessException hierarchy should be thrown?
+a) errorCode
+b) SQLState properties of the caught SQLException
+c) All of the mentioned
+d) None of the mentioned
+
+14. Error code for The statement was aborted because it would have caused a duplicate key value in a unique or primary key constraint.
+a) -1
+b) 0
+c) 23505
+d) 1
+
+15. How does the Spring JDBC framework know that state 23505 should be mapped to DuplicateKeyException?
+a) error code
+b) SQL state
+c) all of the mentioned
+d) none of the mentioned
+
+PART-I
+===========
+1. Class which represents a real-world entity and its instances will be persisted to a database.
+a) entity
+b) persistent
+c) all of the mentioned
+d) none of the mentioned
+
+2. Each entity class to be persisted by an ORM framework, a default constructor with no argument is required.
+a) True
+b) False
+
+3. If the identifier value is null, this entity will be treated as a new and unsaved entity.
+a) True
+b) False
+
+4. To allow the identifier to be null, you should choose a primitive wrapper type:-
+a) java.lang.Integer
+b) java.lang.Long
+c) all of the mentioned
+d) none of the mentioned
+
+5. A set of persistent annotations for you to define mapping metadata.
+a) JPA
+b) JSR
+c) XML
+d) None of the mentioned
+
+6. For mapping and persisting your objects with Hibernate and JPA.
+a) Using the Hibernate API to persist objects with Hibernate XML mappings
+b) Using the Hibernate API to persist objects with JPA annotations
+c) Using JPA to persist objects with JPA annotations
+d) All of the mentioned
+
+7. Core Programming Elements for Different Data Access Strategies.
+a) Resource
+b) Resource Factory
+c) Session
+d) All of the mentioned
+
+8. Interface whose instances can be obtained from a SessionFactory instance.
+a) Session
+b) Session Factory
+c) All of the mentioned
+d) None of the mentioned
+
+9. Interface whose instances can be obtained from an EntityManagerFactory instance.
+a) Entity
+b) EntityManager
+c) All of the mentioned
+d) None of the mentioned
+
+10. The exceptions thrown by Hibernate are of type HibernateException, while those thrown by JPA may be of type PersistenceException.
+a) True
+b) False
+
+11. To accept a session factory via dependency injection.
+a) HibernateCourseDao
+b) HibernateCourse
+c) HibernateDao
+d) All of the mentioned
+
+12. Property for factory bean to load the Hibernate configuration file.
+a) config.xml
+b) config
+c) configLocation
+d) none of the mentioned
+
+13. If you want to use this data source for your session factory, you can inject it into the dataSource property of LocalSessionFactoryBean.
+a) True
+b) False
+
+14. FactoryBean to create an entity manager factory in the IoC container.
+a) LocalEntityManagerFactoryBean
+b) LocalEntityManagerFactory
+c) LocalEntityManager
+d) All of the mentioned
+
+15. It allows you to override some of the configurations in the JPA configuration file.
+a) LocalEntityManagerFactoryBean
+b) LocalContainerEntityManagerFactoryBean
+c) All of the mentioned
+d) None of the mentioned
+
+PART-J
+===========
+1. Spring HibernateTemplate can simplify your DAO implementation by managing sessions and transactions for you.
+a) True
+b) False
+
+2. An alternative to Spring HibernateTemplate is:-
+a) HibernateContext
+b) Hibernate contextual sessions
+c) All of the mentioned
+d) None of the mentioned
+
+3. Sessionfactory can manage contextual sessions for you and allows you to retrieve them by the:-
+a) getSession() method
+b) getCurrent() method
+c) getCurrentSession() method
+d) none of the mentioned
+
+4. DAO methods require access to the session factory, which can be injected:-
+a) a setter method
+b) constructor argument
+c) none of the mentioned
+d) all of the mentioned
+
+5. DAO methods must be made transactional.
+a) True
+b) False
+
+6. Annotation to find a transaction and then fail, complaining that no Hibernate session been bound to the thread.
+a) @Transaction
+b) @Transactional
+c) @Transactions
+d) None of the mentioned
+
+7. In the bean configuration file for Hibernate (i.e., beans-hibernate.xml), you have to declare a HibernateTransactionManager instance for this application and enable declarative transaction via:-
+a) tx:annotation
+b) tx:annotationdriven
+c) tx:annotation-driven
+d) none of the mentioned
+
+8. HibernateTemplate will translate the native Hibernate exceptions into exceptions in Spring DataAccessException hierarchy.
+a) True
+b) False
+
+9. Annotation for Hibernate exceptions to be translated into Spring DataAccessException for consistent exception handling:-
+a) @Translation
+b) @Repo
+c) @Repository
+d) None of the mentioned
+
+10. Instance to translate the native Hibernate exceptions into data access exceptions in Spring DataAccessException hierarchy.
+a) PersistenceExceptionPostProcessor
+b) PersistenceExceptionTranslation
+c) PersistenceException
+d) PersistenceExceptionTranslationPostProcessor
+
+11. You can assign a component name in this annotation and have the session factory autowired by the Spring IoC container with @Autowired.
+a) True
+b) False
+
+12. Spring provides to simplify your DAO implementation by managing entitymanagers and transactions for you:-
+a) HibernateTemplate
+b) JpaTemplate
+c) SpringTemplate
+d) None of the mentioned
+
+13. Annotation used for entity manager injection in EJB components.
+a) @PersistenceContext
+b) @Persistence
+c) @PersistenceCon
+d) None of the mentioned
+
+14. To use the context injection approach, you can declare an entity manager field in your DAO and annotate it with the @PersistenceContext annotation.
+a) True
+b) False
+
+15. JpaTemplate will translate the native JPA exceptions into exceptions in Spring DataAccessException hierarchy.
+a) True
+b) False
