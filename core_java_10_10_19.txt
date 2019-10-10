@@ -1,0 +1,926 @@
+SECTION-A
+===========
+Question 01 Given:
+1. public class Threads2 implements Runnable {
+2.
+3. public void run() {
+4. System.out.println("run.");
+5. throw new RuntimeException("Problem");
+6. }
+7. public static void main(String[] args) {
+8. Thread t = new Thread(new Threads2());
+9. t.start();
+10. System.out.println("End of method.");
+11. }
+12. }
+Which two can be results? (Choose two.)
+A. java.lang.RuntimeException: Problem
+B. run.
+java.lang.RuntimeException: Problem
+C. End of method.
+java.lang.RuntimeException: Problem
+D. End of method.
+run.
+java.lang.RuntimeException: Problem
+E. run.
+java.lang.RuntimeException: Problem
+End of method.
+
+Question: 02 Given:
+public class TestSeven extends Thread {
+private static int x;
+public synchronized void doThings() {
+int current = x;
+current++;
+x = current;
+}
+public void run() {
+doThings();
+}
+}
+Which statement is true?
+A. Compilation fails.
+B. An exception is thrown at runtime.
+C. Synchronizing the run() method would make the class thread-safe.
+D. The data in variable "x" are protected from concurrent access problems.
+E. Declaring the doThings() method as static would make the class thread-safe.
+F. Wrapping the statements within doThings() in a synchronized(new Object()) { } block would make the class thread-safe.
+
+Question: 03 Given:
+1. public class Threads3 implements Runnable {
+2. public void run() {
+3. System.out.print("running");
+4. }
+5. public static void main(String[] args) {
+6. Thread t = new Thread(new Threads3());
+7. t.run();
+8. t.run();
+9. t.start();
+10. }
+11. }
+What is the result?
+A. Compilation fails.
+B. An exception is thrown at runtime.
+C. The code executes and prints "running".
+D. The code executes and prints "runningrunning".
+E. The code executes and prints "runningrunningrunning".
+
+Question: 04 Given:
+public class NamedCounter {
+private final String name;
+private int count;
+public NamedCounter(String name) { this.name = name; }
+public String getName() { return name; }
+public void increment() { count++; }
+public int getCount() { return count; }
+public void reset() { count = 0; }
+}
+Which three changes should be made to adapt this class to be used safely by multiple threads? (Choose
+three.)
+A. declare reset() using the synchronized keyword
+B. declare getName() using the synchronized keyword
+C. declare getCount() using the synchronized keyword
+D. declare the constructor using the synchronized keyword
+E. declare increment() using the synchronized keyword
+
+Q: 05 Given:
+7. void waitForSignal() {
+8. Object obj = new Object();
+9. synchronized (Thread.currentThread()) {
+10. obj.wait();
+11. obj.notify();
+12. }
+13. }
+Which statement is true?
+A. This code may throw an InterruptedException.
+B. This code may throw an IllegalStateException.
+C. This code may throw a TimeoutException after ten minutes.
+D. This code will not compile unless "obj.wait()" is replaced with "((Thread) obj).wait()".
+E. Reversing the order of obj.wait() and obj.notify() may cause this method to complete normally.
+F. A call to notify()or notifyAll() from another thread may cause this method to complete normally.  
+Q: 06 Which two code fragments will execute the method doStuff() in a separate
+thread? (Choose two.)
+A. new Thread() {
+public void run() { doStuff(); }
+};
+B. new Thread() {
+public void start() { doStuff(); }
+};
+C. new Thread() {
+public void start() { doStuff(); }
+}.run();
+D. new Thread() {
+public void run() { doStuff(); }
+}.start();
+E. new Thread(new Runnable() {
+public void run() { doStuff(); }
+}).run();
+F. new Thread(new Runnable() {
+public void run() { doStuff(); }
+}).start();
+
+Q: 07 Given:
+1. public class TestOne implements Runnable {
+2. public static void main (String[] args) throws Exception {
+3. Thread t = new Thread(new TestOne());
+4. t.start();
+5. System.out.print("Started");
+6. t.join();
+7. System.out.print("Complete");
+8. }
+9. public void run() {
+10. for (int i = 0; i < 4; i++) {
+11. System.out.print(i);
+12. }
+13. }
+14. }
+What can be a result?
+A. Compilation fails.
+B. An exception is thrown at runtime.
+C. The code executes and prints "StartedComplete".
+D. The code executes and prints "StartedComplete0123".
+E. The code executes and prints "Started0123Complete".
+
+Q: 08.Given:
+1. public class TestOne {
+2. public static void main (String[] args) throws Exception {
+3. Thread.sleep(3000);
+4. System.out.println("sleep");
+5. }
+6. }
+What is the result?
+A. Compilation fails.
+B. An exception is thrown at runtime.
+C. The code executes normally and prints "sleep".
+D. The code executes normally, but nothing is printed.
+
+Q: 09 Given:
+11. public class Test {
+12. public enum Dogs {collie, harrier, shepherd};
+13. public static void main(String [] args) {
+14. Dogs myDog = Dogs.shepherd;
+15. switch (myDog) {
+16. case collie:
+17. System.out.print("collie ");
+18. case default:
+19. System.out.print("retriever ");
+20. case harrier:
+21. System.out.print("harrier ");
+22. }
+23. }
+24. }
+What is the result?
+A. harrier
+B. shepherd
+C. retriever
+D. Compilation fails.
+E. retriever harrier
+F. An exception is thrown at runtime.
+
+Q: 10 Given:
+11. Runnable r = new Runnable() {
+12. public void run() {
+13. System.out.print("Cat");
+14. }
+15. };
+16. Thread t = new Thread(r) {
+17. public void run() {
+18. System.out.print("Dog");
+19. }
+20. };
+21. t.start();
+What is the result?
+A. Cat
+B. Dog
+C. Compilation fails.
+D. The code runs with no output.
+E. An exception is thrown at runtime.
+
+Q: 11 Given:
+1. public class Threads4 {
+2. public static void main (String[] args) {
+3. new Threads4().go();
+4. }
+5. public void go() {
+6. Runnable r = new Runnable() {
+7. public void run() {
+8. System.out.print("foo");
+9. }
+10. };
+11. Thread t = new Thread(r);
+12. t.start();
+13. t.start();
+14. }
+15. }
+What is the result?
+A. Compilation fails.
+B. An exception is thrown at runtime.
+C. The code executes normally and prints "foo".
+D. The code executes normally, but nothing is printed.
+
+Q: 12 Given:
+foo and bar are public references available to many other threads. foo refers to a Thread and bar is an Object. The thread foo is currently executing bar.wait().
+From another thread, what provides the most reliable way to ensure that foo will stop executing wait()?
+A. foo.notify();                      B. bar.notify();
+C. foo.notifyAll();                 D. Thread.notify();
+E. bar.notifyAll();                F. Object.notify();
+
+Q: 13 Given:
+1. public class MyLogger {
+2. private StringBuilder logger = new StringBuuilder();
+3. public void log(String message, String user) {
+4. logger.append(message);
+5. logger.append(user);
+6. }
+7. }
+The programmer must guarantee that a single MyLogger object works properly for a multi-threaded system. How must this code be changed to be thread-safe?
+A. synchronize the log method
+B. replace StringBuilder with StringBuffer
+C. replace StringBuilder with just a String object and use the string concatenation (+=) within the log method
+D. No change is necessary, the current MyLogger code is already thread-safe.
+
+Q: 14 Given:
+1. public class TestSeven extends Thread {
+2. private static int x;
+3. public synchronized void doThings() {
+4. int current = x;
+5. current++;
+6. x = current;
+7. }
+8. public void run() {
+9. doThings();
+10. }
+11.}
+Which statement is true?
+A. Compilation fails.
+B. An exception is thrown at runtime.
+C. Synchronizing the run() method would make the class thread-safe.
+D. The data in variable "x" are protected from concurrent access problems.
+E. Declaring the doThings() method as static would make the class thread-safe.
+F. Wrapping the statements within doThings() in a synchronized(new Object()) { } block would make the class thread-safe.
+
+Q: 15 Given:
+1. public class Threads5 {
+2. public static void main (String[] args) {
+3. new Thread(new Runnable() {
+4. public void run() {
+5. System.out.print("bar");
+6. }}).start();
+7. }
+8. }
+What is the result?
+A. Compilation fails.
+B. An exception is thrown at runtime.
+C. The code executes normally and prints "bar".
+D. The code executes normally, but nothing prints.
+
+Q: 16 Which three will compile and run without exception? (Choose three.)
+A. private synchronized Object o;
+B. void go() {
+synchronized() { /* code here */ }
+C. public synchronized void go() { /* code here */ }
+D. private synchronized(this) void go() { /* code here */ }
+E. void go() {
+synchronized(Object.class) { /* code here */ }
+F. void go() {
+Object o = new Object();
+synchronized(o) { /* code here */ }
+
+17. Given:
+public class Messager implements Runnable {
+public static void main(String[] args) {
+new Thread(new Messager("Wallace")).start();
+new Thread(new Messager("Gromit")).start();
+}
+private String name;
+public Messager(String name) { this.name = name; }
+public void run() {
+message(1); message(2);
+}
+private synchronized void message(int n) {
+System.out.print(name + "-" + n + " ");
+}
+}
+Which of the following is a possible result? (Choose all that apply.)
+A. Wallace-1 Wallace-2 Gromit-1
+B. Wallace-1 Gromit-2 Wallace-2 Gromit-1
+C. Wallace-1 Gromit-1 Gromit-2 Wallace-2
+D. Gromit-1 Gromit-2
+E. Gromit-2 Wallace-1 Gromit-1 Wallace-2
+F. The code does not compile.
+G. An error occurs at run time.
+
+18. Given:
+public class Letters extends Thread {
+private String name;
+public Letters(String name) { this.name = name; }
+public void write() {
+System.out.print(name);
+System.out.print(name);
+}
+public static void main(String[] args) {
+new Letters("X").start();
+new Letters("Y").start();
+} }
+We want to guarantee that the output can be either XXYY or YYXX, but never XYXY or any other combination. Which of the following method definitions could be added to the Letters class to make this guarantee? (Choose all that apply.)
+A. public void run() { write(); }
+B. public synchronized void run() { write(); }
+C. public static synchronized void run() { write(); }
+D. public void run() { synchronized(this) { write(); } }
+E. public void run() { synchronized(Letters.class) { write(); } }
+F. public void run() { synchronized(System.out) { write(); } }
+G. public void run() { synchronized(System.out.class) { write(); } }
+
+Question 19. The following block of code creates a Thread using a Runnable target:
+Runnable target = new MyRunnable();
+Thread myThread = new Thread(target);
+Which of the following classes can be used to create the target, so that the preceding code compiles correctly?
+A. public class MyRunnable extends Runnable{public void run(){}}
+B. public class MyRunnable extends Object{public void run(){}}
+C. public class MyRunnable implements Runnable{public void run(){}}
+D. public class MyRunnable implements Runnable{void run(){}}
+E. public class MyRunnable implements Runnable{public void start(){}}
+
+Question 20. Given the following,
+2. class MyThread extends Thread {
+3. public static void main(String [] args) {
+4. MyThread t = new MyThread();
+5. t.start();
+6. System.out.print("one. ");
+7. t.start();
+8. System.out.print("two. ");
+9. }
+10. public void run() {
+11. System.out.print("Thread ");
+12. } }
+What is the result of this code?
+A. Compilation fails.
+B. An exception occurs at runtime.
+C. Thread one. Thread two.
+D. The output cannot be determined.
+
+Question 21. Given the following
+3. class MyThread extends Thread {
+4. public static void main(String [] args) {
+5. MyThread t = new MyThread();
+6. Thread x = new Thread(t);
+7. x.start();
+8. }
+9. public void run() {
+10. for(int i=0;i<3;++i) {
+11. System.out.print(i + "..");
+12. } } }
+What is the result of this code?
+A. Compilation fails.        B. 1..2..3..                  C. 0..1..2..3..
+D. 0..1..2..                 E. An exception occurs at runtime.
+
+22. Given the following
+3. class Test {
+4. public static void main(String [] args) {
+5. printAll(args);
+6. }
+7. public static void printAll(String[] lines) {
+8. for(int i=0;i<lines.length;i++){
+9. System.out.println(lines[i]);
+10. Thread.currentThread().sleep(1000);
+11. } } }
+The static method Thread.currentThread() returns a reference to the currently executing
+Thread object. What is the result of this code?
+A. Each String in the array lines will print, with exactly a 1-second pause between lines.
+B. Each String in the array lines will print, with no pause in between because this method is not executed in a Thread.
+C. Each String in the array lines will print, and there is no guarantee there will be a pause because currentThread() may not retrieve this thread.
+D. This code will not compile.
+E. Each String in the lines array will print, with at least a one-second pause between lines.
+
+Question 23. A ssume you have a class that holds two private variables: a and b. Which of the following pairs can prevent concurrent access problems in that class? (Choose all that apply.)
+A. public int read(){return a+b;}
+public void set(int a, int b){this.a=a;this.b=b;}
+B. public synchronized int read(){return a+b;}
+public synchronized void set(int a, int b){this.a=a;this.b=b;}
+C. public int read(){synchronized(a){return a+b;}}
+public void set(int a, int b){synchronized(a){this.a=a;this.b=b;}}
+D. public int read(){synchronized(a){return a+b;}}
+public void set(int a, int b){synchronized(b){this.a=a;this.b=b;}}
+E. public synchronized(this) int read(){return a+b;}
+public synchronized(this) void set(int a, int b){this.a=a;this.b=b;}
+F. public int read(){synchronized(this){return a+b;}}
+public void set(int a, int b){synchronized(this){this.a=a;this.b=b;}}
+Answer: B and F 
+
+Question 24. Which are methods of the Object class? (Choose all that apply.)
+A. notify();
+B. notifyAll();
+C. isInterrupted();
+D. synchronized();
+E. interrupt();
+F. wait(long msecs);
+G. sleep(long msecs);
+H. yield();
+
+Question 25. Given the following
+1. public class WaitTest {
+2. public static void main(String [] args) {
+3. System.out.print("1 ");
+4. synchronized(args){
+5. System.out.print("2 ");
+6. try {
+7. args.wait();
+8. }
+9. catch(InterruptedException e){}
+10. }
+11. System.out.print("3 ");
+12. } }
+What is the result of trying to compile and run this program?
+A. It fails to compile because the IllegalMonitorStateException of wait() is not dealt with inline 7.
+B. 1 2 3              
+C. 1 3
+D. 1 2
+E. At runtime, it throws an IllegalMonitorStateException when trying to wait.
+F. It will fail to compile because it has to be synchronized on the this object.
+
+26. Assume the following method is properly synchronized and called from a thread A on an object B:
+wait(2000);
+After calling this method, when will the thread A become a candidate to get another turn at the CPU?
+A. After object B is notified, or after two seconds.
+B. After the lock on B is released, or after two seconds.
+C. Two seconds after object B is notified.
+D. Two seconds after lock B is released.
+
+27. Which are true? (Choose all that apply.)
+A. The notifyAll() method must be called from a synchronized context.
+B. To call wait(), an object must own the lock on the thread.
+C. The notify() method is defined in class java.lang.Thread.
+D. When a thread is waiting as a result of wait(), it release its lock.
+E. The notify() method causes a thread to immediately release its lock.
+F. The difference between notify() and notifyAll() is that notifyAll() notifies all
+waiting threads, regardless of the object they're waiting on.
+
+Question 28. Given the scenario: This class is intended to allow users to write a series of messages, so that each message is identified with a timestamp and the name of the thread that wrote the message:
+public class Logger {
+private StringBuilder contents = new StringBuilder();
+public void log(String message) {
+contents.append(System.currentTimeMillis());
+contents.append(": ");
+contents.append(Thread.currentThread().getName());
+contents.append(message);
+contents.append("\n");
+}
+public String getContents() { return contents.toString(); }
+}
+How can we ensure that instances of this class can be safely used by multiple threads?
+A. This class is already thread-safe.
+B. Replacing StringBuilder with StringBuffer will make this class thread-safe.
+C. Synchronize the log() method only.
+D. Synchronize the getContents() method only.
+E. Synchronize both log() and getContents().
+F. This class cannot be made thread-safe.
+
+29. Given:
+public static synchronized void main(String[] args) throws
+InterruptedException {
+Thread t = new Thread();
+t.start();
+System.out.print("X");
+t.wait(10000);
+System.out.print("Y");
+}
+What is the result of this code?
+A. It prints X and exits.
+B. It prints X and never exits.
+C. It prints XY and exits almost immeditately.
+D. It prints XY with a 10-second delay between X and Y.
+E. It prints XY with a 10000-second delay between X and Y.
+F. The code does not compile.
+G. An exception is thrown at runtime.
+
+Question 30. Given the following:
+class MyThread extends Thread {
+MyThread() {
+System.out.print(" MyThread");
+}
+public void run() { System.out.print(" bar"); }
+public void run(String s) { System.out.print(" baz"); }
+}
+public class TestThreads {
+public static void main (String [] args) {
+Thread t = new MyThread() {
+public void run() { System.out.print(" foo"); }
+};
+t.start();
+} }
+What is the result?
+A. foo
+B. MyThread foo
+C. MyThread bar
+D. foo bar
+E. foo bar baz
+F. bar foo
+G. Compilation fails.
+H. An exception is thrown at runtime.
+ 
+31. Given
+public class ThreadDemo {
+synchronized void a() { actBusy(); }
+static synchronized void b() { actBusy(); }
+static void actBusy() {
+try { Thread.sleep(1000); }
+catch (InterruptedException e) {}
+}
+public static void main(String[] args) {
+final ThreadDemo x = new ThreadDemo();
+final ThreadDemo y = new ThreadDemo();
+Runnable runnable = new Runnable() {
+public void run() {
+int option = (int) (Math.random() * 4);
+switch (option) {
+case 0: x.a(); break;
+case 1: x.b(); break;
+case 2: y.a(); break;
+case 3: y.b(); break;
+} }
+};
+Thread thread1 = new Thread(runnable);
+Thread thread2 = new Thread(runnable);
+thread1.start();
+thread2.start();
+} }
+Which of the following pairs of method invocations could NEVER be executing at the same
+time? (Choose all that apply.)
+A. x.a() in thread1, and x.a() in thread2
+B. x.a() in thread1, and x.b() in thread2
+C. x.a() in thread1, and y.a() in thread2
+D. x.a() in thread1, and y.b() in thread2
+E. x.b() in thread1, and x.a() in thread2
+F. x.b() in thread1, and x.b() in thread2
+G. x.b() in thread1, and y.a() in thread2
+H. x.b() in thread1, and y.b() in thread2
+
+Question 32. Given the following,
+1. public class Test {
+2. public static void main (String [] args) {
+3. final Foo f = new Foo();
+4. Thread t = new Thread(new Runnable() {
+5. public void run() {
+6. f.doStuff();
+7. }
+8. });
+9. Thread g = new Thread() {
+10. public void run() {
+11. f.doStuff();
+12. }
+13. };
+14. t.start();
+15. g.start();
+16. }
+17. }
+1. class Foo {
+2. int x = 5;
+3. public void doStuff() {
+4. if (x < 10) {
+5. // nothing to do
+6. try {
+7. wait();
+8. } catch(InterruptedException ex) { }
+9. } else {
+10. System.out.println("x is " + x++);
+11. if (x >= 10) {
+12. notify();
+13. }
+14. }
+15. }
+16. }
+What is the result?
+A. The code will not compile because of an error on line 12 of class Foo.
+B. The code will not compile because of an error on line 7 of class Foo.
+C. The code will not compile because of an error on line 4 of class Test.
+D. The code will not compile because of some other error in class Test.
+E. An exception occurs at runtime.
+F. x is 5
+x is 6
+
+Question 33. Given:
+public class TwoThreads {
+static Thread laurel, hardy;
+public static void main(String[] args) {
+laurel = new Thread() {
+public void run() {
+System.out.println("A");
+try {
+hardy.sleep(1000);
+} catch (Exception e) {
+System.out.println("B");
+}
+System.out.println("C");
+}
+};
+hardy = new Thread() {
+public void run() {
+System.out.println("D");
+try {
+laurel.wait();
+} catch (Exception e) {
+System.out.println("E");
+}
+System.out.println("F");
+}
+};
+laurel.start();
+hardy.start();
+}
+}
+Which letters will eventually appear somewhere in the output? (Choose all that apply.)
+A. A                       B. B
+C. C                       D. D
+E. E                       F. F
+G. The answer cannot be reliably determined.
+H. The code does not compile.
+
+=======================
+SECTION-B
+==========================
+Question: 01 Given:
+1. public class GC {
+2. private Object o;
+3. private void doSomethingElse(Object obj) { o = obj; }
+4. public void doSomething() {
+5. Object o = new Object();
+6. doSomethingElse(o);
+7. o = new Object();
+8. doSomethingElse(null);
+9. o = null;
+10. }
+11. }
+When the doSomething method is called, after which line does the Object created in line 5 become
+available for garbage collection?
+A. Line 5
+B. Line 6
+C. Line 7
+D. Line 8
+E. Line 9
+F. Line 10
+
+Question: 02 Given:
+11. public void genNumbers() {
+12. ArrayList numbers = new ArrayList();
+13. for (int i=0; i<10; i++) {
+14. int value = i * ((int) Math.random());
+15. Integer intObj = new Integer(value);
+16. numbers.add(intObj);
+17. }
+18. System.out.println(numbers);
+19. }
+Which line of code marks the earliest point that an object referenced by intObj becomes a candidate for
+garbage collection?
+A. Line 16
+B. Line 17
+C. Line 18
+D. Line 19
+E. The object is NOT a candidate for garbage collection.
+
+Question: 03 Given:
+11. rbo = new ReallyBigObject();
+12. // more code here
+13. rbo = null;
+14. /* insert code here */
+Which statement should be placed at line 14 to suggest that the virtual machine expend effort toward recycling the memory used by the object rbo?
+A. System.gc();
+B. Runtime.gc();
+C. System.freeMemory();
+D. Runtime.getRuntime().growHeap();
+E. Runtime.getRuntime().freeMemory();
+
+Question: 04
+Which two are true? (Choose two.)
+A. A finalizer may NOT be invoked explicitly.
+B. The finalize method declared in class Object takes no action.
+C. super.finalize() is called implicitly by any overriding finalize method.
+D. The finalize method for a given object will be called no more than
+once by the garbage collector.
+E. The order in which finalize will be called on two objects is based on
+the order in which the two objects became finalizable.
+
+05. Given:
+class CardBoard {
+Short story = 5;
+CardBoard go(CardBoard cb) {
+cb = null;
+return cb;
+}
+public static void main(String[] args) {
+CardBoard c1 = new CardBoard();
+CardBoard c2 = new CardBoard();
+CardBoard c3 = c1.go(c2);
+c1 = null;
+// do Stuff
+} }
+When // doStuff is reached, how many objects are eligible for GC?
+A. 0
+B. 1
+C. 2
+D. Compilation fails.
+E. It is not possible to know.
+F. An exception is thrown at runtime.
+
+06. Which is true? (Choose all that apply.)
+A. The invocation of an object’s finalize() method is always the last thing that happens before an object is garbage collected (GCed).
+B. When a stack variable goes out of scope it is eligible for GC.
+C. Some reference variables live on the stack, and some live on the heap.
+D. Only objects that have no reference variables referring to them can be eligible for GC.
+E. It’s possible to request the GC via methods in either java.lang.Runtime or
+java.lang.System classes.
+
+Question 07. Given:
+1. class Eco {
+2. public static void main(String[] args) {
+3. Eco e1 = new Eco();
+4. Eco e2 = new Eco();
+5. Eco e3 = new Eco();
+6. e3.e = e2;
+7. e1.e = e3;
+8. e2 = null;
+9. e3 = null;
+10. e2.e = e1;
+11. e1 = null;
+12. }
+13. Eco e;
+14. }
+At what point is only a single object eligible for GC?
+A. After line 8 runs.
+B. After line 9 runs.
+C. After line 10 runs.
+D. After line 11 runs.
+E. Compilation fails.
+F. Never in this program.
+G. An exception is thrown at runtime.
+
+Q: 08 Given:
+34. HashMap props = new HashMap();
+35. props.put("key45", "some value");
+36. props.put("key12", "some other value");
+37. props.put("key39", "yet another value");
+38. Set s = props.keySet();
+39. // insert code here
+What, inserted at line 39, will sort the keys in the props HashMap?
+A. Arrays.sort(s);
+B. s = new TreeSet(s);
+C. Collections.sort(s);
+D. s = new SortedSet(s);
+
+Q: 09 Given:
+23. Object [] myObjects = {
+24. new Integer(12),
+25. new String("foo"),
+26. new Integer(5),
+27. new Boolean(true)
+28. };
+29. Arrays.sort(myObjects);
+30. for(int i=0; i<myObjects.length; i++) {
+31. System.out.print(myObjects[i].toString());
+32. System.out.print(" ");
+33. }
+What is the result?
+A. Compilation fails due to an error in line 23.
+B. Compilation fails due to an error in line 29.
+C. A ClassCastException occurs in line 29.
+D. A ClassCastException occurs in line 31.
+E. The value of all four objects prints in natural order.
+
+Q: 10 Given:
+1. import java.util.*;
+2. public class Old {
+3. public static Object get0(List list) {
+4. return list.get(0);
+5. }
+6. }
+Which three will compile successfully? (Choose three.)
+A. Object o = Old.get0(new LinkedList());
+B. Object o = Old.get0(new LinkedList<?>());
+C. String s = Old.get0(new LinkedList<String>());
+D. Object o = Old.get0(new LinkedList<Object>());
+E. String s = (String)Old.get0(new LinkedList<String>());
+
+Q: 11 Given:
+1. import java.util.*;
+2. public class Example {
+3. public static void main(String[] args) {
+4. // insert code here
+5. set.add(new Integer(2));
+6. set.add(new Integer(1));
+7. System.out.println(set);
+8. }
+9. }
+Which code, inserted at line 4, guarantees that this program will output [1, 2]?
+A. Set set = new TreeSet();
+B. Set set = new HashSet();
+C. Set set = new SortedSet();
+D. List set = new SortedList();
+E. Set set = new LinkedHashSet();
+
+Q: 12 Given:
+11. public static Collection get() {
+12. Collection sorted = new LinkedList();
+13. sorted.add("B"); sorted.add("C"); sorted.add("A");
+14. return sorted;
+15. }
+16. public static void main(String[] args) {
+17. for (Object obj: get()) {
+18. System.out.print(obj + ", ");
+19. }
+20. }
+What is the result?
+A. A, B, C,
+B. B, C, A,
+C. Compilation fails.
+D. The code runs with no output.
+E. An exception is thrown at runtime.
+
+Q: 13 Given:
+1. import java.util.*;
+2. public class WrappedString {
+3. private String s;
+4. public WrappedString(String s) { this.s = s; }
+5. public static void main(String[] args) {
+6. HashSet<Object> hs = new HashSet<Object>();
+7. WrappedString ws1 = new WrappedString("aardvark");
+8. WrappedString ws2 = new WrappedString("aardvark");
+9. String s1 = new String("aardvark");
+10. String s2 = new String("aardvark");
+11. hs.add(ws1); hs.add(ws2); hs.add(s1); hs.add(s2);
+12. System.out.println(hs.size()); } }
+What is the result?
+A. 0
+B. 1
+C. 2
+D. 3
+E. 4
+F. Compilation fails.
+G. An exception is thrown at runtime.
+
+Q: 14 Given:
+11. public class Key {
+12. private long id1;
+13. private long id2;
+14.
+15. // class Key methods
+16. }
+A programmer is developing a class Key, that will be used as a key in a standard java.util.HashMap.Which two methods should be overridden to assure that Key works correctly as a key? (Choose two.)
+A. public int hashCode()
+B. public boolean equals(Key k)
+C. public int compareTo(Object o)
+D. public boolean equals(Object o)
+E. public boolean compareTo(Key k)
+ 
+Q: 15 Given a pre-generics implementation of a method:
+11. public static int sum(List list) {
+12. int sum = 0;
+13. for ( Iterator iter = list.iterator(); iter.hasNext(); ) {
+14. int i = ((Integer)iter.next()).intValue();
+15. sum += i;
+16. }
+17. return sum;
+18. }
+Which three changes must be made to the method sum to use generics? (Choose three.)
+A. remove line 14
+B. replace line 14 with "int i = iter.next();"
+C. replace line 13 with "for (int i : intList) {"
+D. replace line 13 with "for (Iterator iter : intList) {"
+E. replace the method declaration with "sum(List<int> intList)"
+F. replace the method declaration with "sum(List<Integer> intList)"
+
+Q: 16 Given:
+11. // insert code here
+12. private N min, max;
+13. public N getMin() { return min; }
+14. public N getMax() { return max; }
+15. public void add(N added) {
+16. if (min == null || added.doubleValue() < min.doubleValue()) 17. min = added;
+18. if (max == null || added.doubleValue() > max.doubleValue()) 19. max = added;
+20. }
+21. }
+Which two, inserted at line 11, will allow the code to compile? (Choose two.)
+A. public class MinMax<?> {
+B. public class MinMax<? extends Number> {
+C. public class MinMax<N extends Object> {
+D. public class MinMax<N extends Number> {
+E. public class MinMax<? extends Object> {
+F. public class MinMax<N extends Integer> {
+
+Q: 18 Given:
+1. import java.util.*;
+2.
+3. public class LetterASort{
+4. public static void main(String[] args) {
+5. ArrayList<String> strings = new ArrayList<String>();
+6. strings.add("aAaA");
+7. strings.add("AaA");
+8. strings.add("aAa");
+9. strings.add("AAaa");
+10. Collections.sort(strings);
+11. for (String s : strings) { System.out.print(s + " "); }
+12. }
+13. }
+What is the result?
+A. Compilation fails.             B. aAaA aAa AAaa AaA
+C. AAaa AaA aAa aAaA              D. AaA AAaa aAaA aAa
+E. aAa AaA aAaA AAaa              F. An exception is thrown at runtime.
+
